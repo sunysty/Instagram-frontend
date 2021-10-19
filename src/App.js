@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import { CommentModal } from './components';
+import Main from './pages/Main';
 
 function App() {
   return (
     <React.Fragment>
-      <Route path='/commentmodal' exact component={CommentModal} />
+      <Route path='/' exact component={Main} />
     </React.Fragment>
   );
 }

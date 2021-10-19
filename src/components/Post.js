@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import DetailModal from './DetailModal';
 
@@ -13,18 +13,18 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 
 import { history } from '../redux/configStore';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as postActions } from '../redux/modules/post';
+import { actionCreators as commentActions } from '../redux/modules/comment';
 
 const Post = (props) => {
   const dispatch = useDispatch();
-  const is_login = useSelector((state) => state.user.is_login);
+  // const is_login = useSelector((state) => state.user.is_login);
   const [comments, setComments] = useState();
   const [is_modal, setDetailModal] = useState();
   const [is_changemodal, setChangeModal] = useState();
   const submit = comments ? true : false;
 
-  const is_me = useSelector((state) => state.user.user.userName); // 로그인한 사용자
-  const userInfo = useSelector((state) => state.user.user);
+  // const is_me = useSelector((state) => state.user.user.userName); // 로그인한 사용자
+  // const userInfo = useSelector((state) => state.user.user);
   const comment_list = useSelector((state) => state.comment.list[props.id]);
   const is_comment = comment_list ? true : false;
   // const idx = props.like_id.findIndex((l) => l === userInfo.userName);  // 좋아요
@@ -49,10 +49,10 @@ const Post = (props) => {
   };
 
   const addComment = () => {
-    console.log(commetns);
+    console.log(comments);
     let commentInfo = {
       comment: comments,
-      userName: userInfo.userName,
+      // userName: userInfo.userName,
     };
 
     dispatch(commentActions.addCommentAX(commentInfo, props.id));
@@ -100,14 +100,14 @@ const Post = (props) => {
               <PostAuthor>{props.userName}</PostAuthor>
             </PostHeaderLeft>
             {/* 로그인한 사용자와 작성자가 같다면 수정/삭제 모달을 띄우는 버튼이 보이게 한다. */}
-            {props.userName === is_me ? (
+            {/* {props.userName === is_me ? (
               <MoreHorizIcon
                 height='14px'
                 width='14px'
                 cursor='pointer'
                 // onClick={}
               />
-            ) : null}
+            ) : null} */}
           </PostHeader>
           <PostBody>
             <PostImage src={props.image} onClick={openDetailModal} />
@@ -122,7 +122,7 @@ const Post = (props) => {
           <BottomAuthorCmtBox>
             <AuthorCmtBox>
               <Author>{props.userName}</Author>
-              <Comment>{props.content}</Comment>
+              <Comments>{props.content}</Comments>
             </AuthorCmtBox>
           </BottomAuthorCmtBox>
           {/* 메인 페이지의 게시글의 댓글란의 댓글이 최대 2개만 보이게해서 창이 고정되게 한다. */}
@@ -131,15 +131,15 @@ const Post = (props) => {
                 if (idx < 2) {
                   return (
                     <ReplyBox>
-                      {c.userName === userInfo.userName ? (
+                      {/* {c.userName === userInfo.userName ? (
                         <DeleteBtn
                           onClick={() => {
                             deleteComment(c.id);
-                          }}
-                        >
+                          }} */}
+                      {/* >
                           <DeleteForeverIcon />
                         </DeleteBtn>
-                      ) : null}
+                      ) : null} */}
                     </ReplyBox>
                   );
                 }
@@ -248,7 +248,7 @@ const ButtonIcons = styled.div`
 
 const TwoIcons = styled.div`
   height: 24px;
-  width: 104px;
+  width: 65px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -273,7 +273,7 @@ const Author = styled.div`
   padding-right: 10px;
 `;
 
-const Comment = styled.div`
+const Comments = styled.div`
   font-size: 14px;
 `;
 

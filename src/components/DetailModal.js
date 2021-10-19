@@ -4,8 +4,7 @@ import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import { actionCreatos as commentActions } from '../redux/modules/comment';
-import { Grid } from '../elements';
+import { actionCreators as commentActions } from '../redux/modules/comment';
 
 const DetailModal = (props) => {
   const dispatch = useDispatch();

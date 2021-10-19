@@ -1,3 +1,4 @@
-import CommentModal from './CommentModal';
+import Header from './Header';
+import Post from './Post';
 
-export { CommentModal };
+export { Header, Post };
