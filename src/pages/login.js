@@ -17,6 +17,9 @@ const LogIn = () => {
     console.log(e.target.value);
   };
   const login = () => {
+    if (username === "" || pwd === "") {
+      alert("비밀번호를 확인해 주세요");
+    }
     dispatch(userAction.logInMW(username, pwd));
   };
   return (

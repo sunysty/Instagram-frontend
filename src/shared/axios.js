@@ -5,7 +5,7 @@ const cookies = new Cookies();
 
 const instance = axios.create({
   // 기본적으로 우리가 바라볼 서버의 주소
-  baseURL: "http://localhost:4000/",
+  baseURL: "http://withoh.shop/",
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json",
@@ -33,11 +33,12 @@ export const apis = {
   // logInAX: (user) => instance.post("/signup", user),
 
   //회원가입
-  getAccountAX: (user) => instance.get("/api/user/signup", user),
+  getAccountAX: (user) => instance.post("/api/user/signup", user),
   // getAccountAX: (user) => instance.post("/signup", user),
 
   // 회원가입 아이디 중복 체크
   getIdCheckAX: (username) => instance.post("/api/user/redunancy", username),
+
   //로그아웃
   logOutAX: () => instance.get("/api/user/logout"),
 };

@@ -21,7 +21,6 @@ const initialState = {
 //Action Creator
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const logIn = createAction(LOGIN, (user) => ({ user }));
-const logOut = createAction(LOGOUT, (user) => ({ user }));
 const checkId = createAction(CHECK_ID, (username) => ({ username }));
 
 //회원가입 등록
@@ -57,31 +56,17 @@ const logInMW = (username, pwd) => {
     apis
       .logInAX(user)
       .then((res) => {
-        if (res.result === "success") {
-          cookies.set("token", res.data.token);
+        if (res.data.result === "success") {
+          cookies.set("token", res.data.data);
           dispatch(logIn(user));
           history.push("/");
         } else {
-          alert(res.data.msg);
+          alert(res.data.result);
         }
       })
       .catch((error) => {
         console.log(error.message);
       });
-  };
-};
-
-//로그아웃
-const logOutMW = () => {
-  return function (dispatch, getState, { history }) {
-    const cookies = new Cookies();
-    apis.logOutAX().then((res) => {
-      if (res.result === "success") {
-        cookies.remove("token");
-        console.log("logout 성공");
-        history.replace("/login");
-      }
-    });
   };
 };
 
@@ -91,7 +76,7 @@ const idCheckMW = (username) => {
     apis
       .getIdCheckAX(username)
       .then((res) => {
-        dispatch(checkId(res.result));
+        dispatch(checkId(res.data.result));
         console.log(res.data);
       })
       .catch((err) => {
@@ -128,10 +113,8 @@ export default handleActions(
 const actionCreators = {
   setUser,
   logIn,
-  logOut,
   setAccountMW,
   logInMW,
-  logOutMW,
   checkId,
   idCheckMW,
 };

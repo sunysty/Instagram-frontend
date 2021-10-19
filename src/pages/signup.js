@@ -2,6 +2,9 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { actionCreators as userAction } from "../redux/modules/user";
 
+import TextField from "@mui/material/TextField";
+import styled from "styled-components";
+
 const SignUp = () => {
   const dispatch = useDispatch();
 
@@ -31,27 +34,61 @@ const SignUp = () => {
   };
 
   return (
-    <React.Fragment>
-      <div>회원가입</div>
-      <div>
-        아이디
-        <input onChange={onChangeId} placeholder="아이디" />
-        <button onClick={idCheck}>아이디 중복확인</button>
-      </div>
-      <div>
-        성명 <input onChange={onChangeName} placeholder="성명" />
-      </div>
-      <div>
-        패스워드 <input onChange={onChangePwd} placeholder="비밀번호" />
-      </div>
-      <div>
-        패스워드확인 <input />
-      </div>
-      <div>
-        <button onClick={ClickSignup}>회원가입하기</button>
-      </div>
-    </React.Fragment>
+    <Wrap>
+      <Container>
+        <div>
+          <img src="https://fontmeme.com/images/instagram-new-logo.png" />
+        </div>
+        <div>
+          <TextField
+            id="outlined-basic"
+            label="아이디"
+            variant="outlined"
+            onChange={onChangeId}
+          />
+          <button onClick={idCheck}>아이디 중복확인</button>
+        </div>
+        <div>
+          <TextField
+            id="outlined-basic"
+            label="성명"
+            variant="outlined"
+            onChange={onChangeName}
+          />
+        </div>
+        <div>
+          <TextField
+            id="outlined-basic"
+            label="비밀번호"
+            variant="outlined"
+            onChange={onChangePwd}
+          />
+        </div>
+        <div>
+          <TextField
+            id="outlined-basic"
+            label="비밀번호 확인"
+            variant="outlined"
+          />
+        </div>
+        <div>
+          <button onClick={ClickSignup}>회원가입하기</button>
+        </div>
+      </Container>
+    </Wrap>
   );
 };
+
+const Wrap = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: #fafafa;
+`;
+const Container = styled.div`
+  border: 1px solid #dbdbdb;
+  width: 30%;
+  height: 70%;
+  padding: 2em;
+`;
 
 export default SignUp;
