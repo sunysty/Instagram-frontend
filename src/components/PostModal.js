@@ -4,7 +4,7 @@ import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { Grid, Input, Textarea, Text, Upload } from "../elements/index";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as imageActions } from "../redux/modules/image";
+import { actionCreators as postActions } from "../redux/modules/image";
 import apis from "axios";
 
 const PostModal = () => {
@@ -25,26 +25,21 @@ const PostModal = () => {
 
   //파일을 업로드하는 함수
   const fileUpload = (e) => {
-    const formData = new FormData();
-    formData.append("선택한파일", selectedFile);
-    formData.append("작성한글", textarea);
+    const form_data = new FormData();
+    form_data.append("선택한파일", selectedFile);
+    form_data.append("작성한글", textarea);
     console.log(selectedFile, textarea, "사진,글 업로드");
-  };
 
-  //사진url값을 이미지에 보여주는 함수
-  const imageURL = (e) => {
-    //서버에서 파일을 url로 변경해주면 다시 가져와서 그려줌
-  }
+    dispatch(postActions.addPostAX(form_data));
+  };
 
   return (
     <ModalContainer>
-
       <div>
         {/* <img src={imageUrl}/> */}
         <input type="file" onChange={fileChange} accept=".gif, .jpg, .png" />
       </div>
-      
-      <textarea />
+      <textarea onChange={textareaChange} />
       <button onClick={fileUpload}>업로드</button>
       <button onClick={textareaChange}>텍스트테스트</button>
     </ModalContainer>
@@ -59,6 +54,5 @@ const ModalContainer = styled.form`
   height: 100%;
   background-color: rgba(0, 0, 0, 0);
 `;
-
 
 export default PostModal;
