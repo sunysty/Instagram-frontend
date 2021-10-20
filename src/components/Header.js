@@ -17,14 +17,10 @@ const Header = () => {
             height="39px"
           ></img>
           <div>
-            <div
-              onClick={() => {
-                history.push("/");
-              }}
-            >
-              Home
-            </div>
-            <div height="39px">PostModal</div>
+            <Grid is_flex justify='space-between' width='100px'>
+              <RiHome2Fill />
+              <BsPlusSquareFill />
+            </Grid>
           </div>
         </Grid>
       </Container>
