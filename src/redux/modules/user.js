@@ -62,6 +62,8 @@ const logInMW = (username, pwd) => {
           cookies.set("is_login", true);
           dispatch(logIn(user));
           history.push("/");
+        } else if (res.data.result === "failed") {
+          alert(res.data.data);
         }
       })
       .catch((error) => {
