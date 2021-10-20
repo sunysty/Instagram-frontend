@@ -1,19 +1,20 @@
-import { createAction, handleActions } from "redux-actions";
-import { produce } from "immer";
-import axios from "axios";
-import "moment";
-import moment from "moment";
-import user from "./user";
+import { createAction, handleActions } from 'redux-actions';
+import { produce } from 'immer';
+import axios from 'axios';
+import 'moment';
+import moment from 'moment';
+import user from './user';
+import comment from './comment';
 
 // 목록 redux
-const SET_POST = "SET_POST";
+const SET_POST = 'SET_POST';
 
 // 추가
-const ADD_POST = "ADD_POST";
-const EDIT_POST = "EDIT_POST";
-const DELETE_POST = "DELETE_POST";
-const NEW_COMMENT = "NEW_COMMENT";
-const OLD_COMMENT = "OLD_COMMENT";
+const ADD_POST = 'ADD_POST';
+const EDIT_POST = 'EDIT_POST';
+const DELETE_POST = 'DELETE_POST';
+const NEW_COMMENT = 'NEW_COMMENT';
+const OLD_COMMENT = 'OLD_COMMENT';
 // const LOADING = 'LOADING';
 
 const setPost = createAction(SET_POST, (post_list) => ({ post_list }));
@@ -38,11 +39,11 @@ const initialState = {
 };
 
 const initialPost = {
-  contents: "",
-  userName: "",
-  insert_dt: "",
-  image: "",
-  profile_image: "",
+  contents: '',
+  userName: '',
+  insert_dt: '',
+  image: '',
+  profile_image: '',
 };
 
 // 작성한 게시글을 서버에 보내는 작업
@@ -58,8 +59,8 @@ const addPostAX = (post) => {
     // formData.append("content", contents);
 
     const options = {
-      url: "/api/upload",
-      method: "POST",
+      url: '/api/upload',
+      method: 'POST',
       data: formData,
     };
     axios(options)
@@ -76,13 +77,13 @@ const addPostAX = (post) => {
         console.log(post_list);
         // redux 상태 업데이트
         dispatch(addPost(post_list));
-        window.alert("게시물 작성이 완료되었습니다.");
-        history.push("/main");
+        window.alert('게시물 작성이 완료되었습니다.');
+        history.push('/main');
       })
       .catch((err) => {
         console.log(err);
         if (err.res) {
-          window.alert("오류메세지");
+          window.alert('오류메세지');
         }
       });
 
@@ -101,8 +102,8 @@ const addPostAX = (post) => {
 const getAllPostAX = (history) => {
   return function (dispatch, getState) {
     const options = {
-      url: "/api/post",
-      method: "POST",
+      url: '/api/post',
+      method: 'POST',
     };
     axios(options)
       .then((res) => {
@@ -124,7 +125,7 @@ const getAllPostAX = (history) => {
       .catch((err) => {
         console.log(err);
         if (err.res) {
-          window.alert("getAllPost 에러");
+          window.alert('getAllPost 에러');
         }
       });
   };
@@ -143,11 +144,12 @@ const getAllPostAX = (history) => {
 //     dispatch(setPost(post_list));
 //   };
 // };
+
 const deletePostAX = (post_id) => {
   return function (dispatch) {
     const options = {
-      url: "/api/post",
-      method: "DELETE",
+      url: '/api/post',
+      method: 'DELETE',
       data: {
         post_id: post_id,
       },
@@ -161,16 +163,17 @@ const deletePostAX = (post_id) => {
       .catch((err) => {
         console.log(err);
         if (err.res) {
-          window.alert("게시글 삭제 에러");
+          window.alert('게시글 삭제 에러');
         }
       });
   };
 };
+
 const editPostAX = (content, post_id) => {
   return function (dispatch) {
     const options = {
-      url: "/api/post",
-      method: "PUT",
+      url: '/api/post',
+      method: 'PUT',
       data: {
         post_id: post_id,
         content: content,
@@ -187,7 +190,7 @@ const editPostAX = (content, post_id) => {
       })
       .catch((err) => {
         if (err.res) {
-          window.alert("게시글 수정 에러");
+          window.alert('게시글 수정 에러');
         }
       });
   };
@@ -227,8 +230,9 @@ export default handleActions(
         let idx = draft.list.findIndex(
           (p) => p.post_id === action.payload.commentInfo
         );
-        draft.list[idx].comments.push("add");
+        draft.list[idx].comments.push('add');
       }),
+
     [OLD_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         let idx = draft.list.findIndex(
@@ -249,4 +253,5 @@ const actionCreators = {
   newComment,
   oldComment,
 };
+
 export { actionCreators };

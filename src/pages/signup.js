@@ -1,21 +1,21 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
-import { actionCreators as userAction } from "../redux/modules/user";
-import _ from "lodash";
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
+import { actionCreators as userAction } from '../redux/modules/user';
+import _ from 'lodash';
 
-import { TextField } from "@mui/material";
-import styled from "styled-components";
-import Button from "@mui/material/Button";
+import { TextField } from '@mui/material';
+import styled from 'styled-components';
+import Button from '@mui/material/Button';
 
-const SignUp = () => {
+const Signup = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [username, setUsername] = React.useState("");
-  const [name, setName] = React.useState("");
-  const [pwd, setPwd] = React.useState("");
-  const [checkpwd, setCheckpwd] = React.useState("");
+  const [username, setUsername] = React.useState('');
+  const [name, setName] = React.useState('');
+  const [pwd, setPwd] = React.useState('');
+  const [checkpwd, setCheckpwd] = React.useState('');
 
   //입력한 ID 값 가져오기
   const onChangeId = (e) => {
@@ -42,18 +42,18 @@ const SignUp = () => {
     const checkText = reg.test(username);
 
     if (pwd !== checkpwd) {
-      alert("비밀번호가 같지 않습니다. 다시 한번 확인해주세요.");
+      alert('비밀번호가 같지 않습니다. 다시 한번 확인해주세요.');
     } else if (!checkText) {
-      alert("아이디의 형식이 맞지 않습니다.");
+      alert('아이디의 형식이 맞지 않습니다.');
     } else if (username.length < 4) {
-      alert("4자 이상 입력해주세요");
+      alert('4자 이상 입력해주세요');
     } else {
       dispatch(userAction.setAccountMW(username, name, pwd));
     }
   };
   //Enter키로 Button 이벤트 발생
   const signupKeyPress = (e) => {
-    if (e.key == "Enter") {
+    if (e.key == 'Enter') {
       signup();
     }
   };
@@ -61,51 +61,51 @@ const SignUp = () => {
     <Wrap>
       <Container>
         <div>
-          <Images src="https://fontmeme.com/images/instagram-new-logo.png" />
+          <Images src='https://fontmeme.com/images/instagram-new-logo.png' />
         </div>
         <Text>친구들의 사진과 동영상을 보려면 가입하세요.</Text>
         <InputBox>
           <TextField
-            id="outlined-basic"
-            label="아이디"
-            variant="outlined"
+            id='outlined-basic'
+            label='아이디'
+            variant='outlined'
             onChange={onChangeId}
-            size="small"
-            margin="dense"
-            sx={{ width: "100%" }}
+            size='small'
+            margin='dense'
+            sx={{ width: '100%' }}
           />
           <TextField
-            id="outlined-basic"
-            label="성명"
-            variant="outlined"
-            size="small"
+            id='outlined-basic'
+            label='성명'
+            variant='outlined'
+            size='small'
             onChange={onChangeName}
-            margin="dense"
-            sx={{ width: "100%" }}
+            margin='dense'
+            sx={{ width: '100%' }}
           />
           <TextField
-            id="outlined-basic"
-            label="비밀번호"
-            type="password"
-            variant="outlined"
-            size="small"
+            id='outlined-basic'
+            label='비밀번호'
+            type='password'
+            variant='outlined'
+            size='small'
             onChange={onChangePwd}
-            margin="dense"
-            sx={{ width: "100%" }}
+            margin='dense'
+            sx={{ width: '100%' }}
           />
           <TextField
-            id="outlined-basic"
-            label="비밀번호 확인"
-            type="password"
-            variant="outlined"
-            size="small"
+            id='outlined-basic'
+            label='비밀번호 확인'
+            type='password'
+            variant='outlined'
+            size='small'
             onChange={onChangeCheckPwd}
             onKeyPress={signupKeyPress}
-            margin="dense"
-            sx={{ width: "100%" }}
+            margin='dense'
+            sx={{ width: '100%' }}
           />
           <div>
-            {username === "" || name === "" || pwd === "" || checkpwd === "" ? (
+            {username === '' || name === '' || pwd === '' || checkpwd === '' ? (
               <BlockedButton onClick={signup} disabled>
                 로그인하기
               </BlockedButton>
@@ -119,9 +119,9 @@ const SignUp = () => {
         계정이 있으신가요?
         <Button
           onClick={() => {
-            history.push("/login");
+            history.push('/login');
           }}
-          sx={{ margin: "-7px" }}
+          sx={{ margin: '-7px' }}
         >
           로그인
         </Button>
@@ -195,4 +195,4 @@ const LoginBox = styled.div`
   font-size: 14px;
 `;
 
-export default SignUp;
+export default Signup;

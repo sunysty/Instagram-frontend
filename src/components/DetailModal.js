@@ -8,7 +8,7 @@ import { actionCreators as commentActions } from '../redux/modules/comment';
 
 const DetailModal = (props) => {
   const dispatch = useDispatch();
-  const [comments, setComments] = useState;
+  const [comments, setComments] = useState();
   const submit = comments ? true : false;
   console.log(props);
   const selectComment = (e) => {
@@ -20,10 +20,10 @@ const DetailModal = (props) => {
     console.log(comments);
     let commentInfo = {
       comment: comments,
-      userName: props.userInfo.userName,
+      userName: props.userName,
       // 프로필 (마이페이지) 만들게되면 url 삽입
     };
-    dispatch(commentActions.addCommentDB(commentInfo, props.id));
+    dispatch(commentActions.addCommentAX(commentInfo, props.id));
     setComments('');
   };
   return (
@@ -61,7 +61,7 @@ const DetailModal = (props) => {
                           <ModalAuthor>{c.userName}</ModalAuthor>
                           {c.comment}
                         </div>
-                        {c.userName === props.userInfo.userName ? (
+                        {c.userName === props.userName ? (
                           <CmtDeleteBtn
                             onClick={() => {
                               props.deleteComment(c.id);
