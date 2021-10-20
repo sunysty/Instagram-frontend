@@ -16,8 +16,6 @@ const DELETE_POST = 'DELETE_POST';
 const NEW_COMMENT = 'NEW_COMMENT';
 const OLD_COMMENT = 'OLD_COMMENT';
 // const LOADING = 'LOADING';
-const NEW_COMMENT = 'NEW_COMMENT';
-const OLD_COMMENT = 'OLD_COMMENT';
 
 const setPost = createAction(SET_POST, (post_list) => ({ post_list }));
 const addPost = createAction(ADD_POST, (post) => ({ post }));
