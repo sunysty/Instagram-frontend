@@ -1,14 +1,14 @@
-import { createAction, handleActions } from 'redux-actions';
-import { produce } from 'immer';
-import { history } from '../configStore';
-import axios from 'axios';
-import { apis } from '../../shared/axios';
+import { createAction, handleActions } from "redux-actions";
+import { apis } from "../../shared/axios";
+import { Cookies } from "react-cookie";
+import { produce } from "immer";
+import { history } from "../configStore";
+import axios from "axios";
 
-const SET_USER = 'SET_USER';
-// const LOG_OUT = 'LOG_OUT';
-
-const setUser = createAction(SET_USER, (user) => ({ user }));
-// const logOut = createAction(LOG_OUT, (user) => ({user}));
+//Action
+const SET_USER = "SET_USER";
+const LOGIN = "LOGIN";
+const LOGOUT = "LOGOUT";
 
 const initialState = {
   user: {
@@ -19,28 +19,57 @@ const initialState = {
   is_loading: false,
 };
 
-const loginMiddleware = (loginInfo) => {
-  return (dispatch, getstate, { history }) => {
+//Action Creator
+const setUser = createAction(SET_USER, (user) => ({ user }));
+const logIn = createAction(LOGIN, (user) => ({ user }));
+
+//회원가입 등록
+const setAccountMW = (username, name, pwd) => {
+  return function (dispatch, getState, { history }) {
+    const user = {
+      username: username,
+      name: name,
+      pwd: pwd,
+    };
     apis
-      .login(loginInfo)
+      .getAccountAX(user)
       .then((res) => {
-        console.log(res);
+        if (res.data.result === "success") {
+          dispatch(setUser(user));
+          alert(res.data.data);
+          history.push("/login");
+        } else if (res.data.result === "failed") {
+          alert(res.data.data);
+        }
       })
-      .catch((err) => {
-        return console.log(err);
+      .catch((error) => {
+        console.log(error.message);
       });
   };
 };
 
-const signupMiddleware = (signupInfo) => {
-  return () => {
+//로그인
+const logInMW = (username, pwd) => {
+  return function (dispatch, getState, { history }) {
+    const user = {
+      username: username,
+      pwd: pwd,
+    };
+    const cookies = new Cookies();
     apis
-      .signup(signupInfo)
+      .logInAX(user)
       .then((res) => {
-        console.log(res);
+        if (res.data.result === "success") {
+          cookies.set("token", res.data.data);
+          cookies.set("is_login", true);
+          dispatch(logIn(user));
+          history.push("/");
+        } else if (res.data.result === "failed") {
+          alert(res.data.data);
+        }
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error.message);
       });
   };
 };
@@ -58,19 +87,40 @@ const idCheckMiddleware = (userName) => {
   };
 };
 
+//Reducer
 export default handleActions(
   {
-    [SET_USER]: (state, action) => produce(state, (draft) => {}),
-    // [LOG_OUT]: (state, action) => produce(state, (draft) => {}),
+    [SET_USER]: (state, action) =>
+      produce(state, (draft) => {
+        // const newAccount = {
+        //   username: action.payload.username,
+        //   name: action.payload.name,
+        //   pwd: action.payload.pwd,
+        // };
+        // draft.user = { ...draft.user, newAccount };
+        draft.user = action.payload.user;
+      }),
+    [LOGIN]: (state, action) =>
+      produce(state, (draft) => {
+        draft.user = action.payload.user;
+        draft.is_login = true;
+        console.log(state);
+      }),
+    [LOGOUT]: (state, action) =>
+      produce(state, (draft) => {
+        draft.user = null;
+        draft.is_login = false;
+      }),
   },
   initialState
 );
 
-const userCreators = {
-  signupMiddleware,
-  loginMiddleware,
-  idCheckMiddleware,
+const actionCreators = {
   setUser,
+  logIn,
+  setAccountMW,
+  logInMW,
+  idCheckMiddleware,
 };
 
-export { userCreators };
+export { actionCreators };

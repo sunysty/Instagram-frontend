@@ -13,6 +13,8 @@ const SET_POST = 'SET_POST';
 const ADD_POST = 'ADD_POST';
 const EDIT_POST = 'EDIT_POST';
 const DELETE_POST = 'DELETE_POST';
+const NEW_COMMENT = 'NEW_COMMENT';
+const OLD_COMMENT = 'OLD_COMMENT';
 // const LOADING = 'LOADING';
 const NEW_COMMENT = 'NEW_COMMENT';
 const OLD_COMMENT = 'OLD_COMMENT';
@@ -52,11 +54,11 @@ const initialPost = {
 // 그 후에 response로 게시물 id를 받아서 redux store에 게시물 데이터와 같이 저장
 
 const addPostAX = (post) => {
-  return function (dispatch, getState) {
+  return function (dispatch, getState, { history }) {
     // formdata에 파일과 게시글 내용을 담아 서버로 전송
     let formData = new FormData();
-    formData.append('file', file);
-    formData.append('content', contents);
+    // formData.append("file", file);
+    // formData.append("content", contents);
 
     const options = {
       url: '/api/upload',
@@ -130,7 +132,6 @@ const getAllPostAX = (history) => {
       });
   };
 };
-
 // const getMyPostAX = (history) => {
 //   return function (dispatch, getState) {
 //     const res = res.post_list;
@@ -196,7 +197,6 @@ const editPostAX = (content, post_id) => {
       });
   };
 };
-
 // reducer
 export default handleActions(
   {
@@ -204,12 +204,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.list = action.payload.post_list;
       }),
-
     [ADD_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list.unshift(action.payload.post);
       }),
-
     [DELETE_POST]: (state, action) =>
       produce(state, (draft) => {
         let new_post_list = draft.list.filter((e) => {
@@ -219,18 +217,15 @@ export default handleActions(
         });
         draft.list = new_post_list;
       }),
-
     [EDIT_POST]: (state, action) =>
       produce(state, (draft) => {
         // post_list 게시글 데이터중 방금 수정한 게시글과 post_id를 비교하여
         let idx = draft.list.findIndex(
           (p) => p.post_id === action.payload.post.post_id
         );
-
         // 그 인덱스의 content를 수정된 content로 바꿔준다.
         draft.list[idx].content = action.payload.post.content;
       }),
-
     // Post에서도 댓글 게시가 가능해서 넣음
     [NEW_COMMENT]: (state, action) =>
       produce(state, (draft) => {
@@ -250,7 +245,6 @@ export default handleActions(
   },
   initialState
 );
-
 const actionCreators = {
   setPost,
   addPostAX,
@@ -262,4 +256,4 @@ const actionCreators = {
   oldComment,
 };
 
-export { actionCreators }
+export { actionCreators };
