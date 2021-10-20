@@ -15,8 +15,10 @@ const Header = () => {
             height='39px'
           ></img>
           <div>
-            <RiHome2Fill />
-            <BsPlusSquareFill />
+            <Grid is_flex justify='space-between' width='100px'>
+              <RiHome2Fill />
+              <BsPlusSquareFill />
+            </Grid>
           </div>
         </Grid>
       </Container>
