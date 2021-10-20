@@ -4,9 +4,9 @@ import { ConnectedRouter } from "connected-react-router";
 import { history } from "./redux/configStore";
 import { Cookies } from "react-cookie";
 
-import login from "./pages/login";
-import signup from "./pages/signup";
-import test from "./pages/test";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Main from "./pages/Main";
 
 function App() {
   const cookies = new Cookies();
@@ -15,11 +15,11 @@ function App() {
   return (
     <ConnectedRouter history={history}>
       {loginState ? (
-        <Route path="/" exact component={test} />
+        <Route path="/" exact component={Main} />
       ) : (
-        <Route path="/login" exact component={login} />
+        <Route path="/login" exact component={Login} />
       )}
-      <Route path="/signup" exact component={signup} />
+      <Route path="/signup" exact component={Signup} />
     </ConnectedRouter>
   );
 }

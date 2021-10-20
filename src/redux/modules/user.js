@@ -1,7 +1,9 @@
-import produce from "immer";
 import { createAction, handleActions } from "redux-actions";
 import { apis } from "../../shared/axios";
 import { Cookies } from "react-cookie";
+import { produce } from "immer";
+import { history } from "../configStore";
+import axios from "axios";
 
 //Action
 const SET_USER = "SET_USER";
@@ -9,12 +11,12 @@ const LOGIN = "LOGIN";
 const LOGOUT = "LOGOUT";
 
 const initialState = {
-  is_login: false,
   user: {
-    username: "rlarkqals",
-    name: "gabmin",
-    pwd: "1234",
+    userName: null,
+    profile_image: null,
   },
+  is_login: false,
+  is_loading: false,
 };
 
 //Action Creator
@@ -72,6 +74,19 @@ const logInMW = (username, pwd) => {
   };
 };
 
+const idCheckMiddleware = (userName) => {
+  return () => {
+    apis
+      .idCheck(userName)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
 //Reducer
 export default handleActions(
   {
@@ -105,6 +120,7 @@ const actionCreators = {
   logIn,
   setAccountMW,
   logInMW,
+  idCheckMiddleware,
 };
 
 export { actionCreators };

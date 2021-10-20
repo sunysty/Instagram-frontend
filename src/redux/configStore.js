@@ -2,13 +2,19 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
-import user from "./modules/user";
+import Post from "./modules/post";
+import User from "./modules/user";
+import Image from "./modules/image";
+import Comment from "./modules/comment";
 
 // 이제 history 리덕스에서 사용가능
 export const history = createBrowserHistory({ forceRefresh: true });
 
 const rootReducer = combineReducers({
-  user: user,
+  user: User,
+  post: Post,
+  image: Image,
+  comment: Comment,
   router: connectRouter(history),
 });
 
