@@ -14,7 +14,7 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 //훅
 import { history } from '../redux/configStore';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as commentActions } from '../redux/modules/comment';
+import { actionCreators } from '../redux/modules/comment';
 
 const Post = (props) => {
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const Post = (props) => {
   // const is_like = idx !== -1 ? true : false;
 
   React.useEffect(() => {
-    dispatch(commentActions.getCommentAX(props.id));
+    dispatch(actionCreators.getCommentAX(props.id));
   }, []);
 
   // 댓글, 모달창 제어함수
@@ -64,14 +64,14 @@ const Post = (props) => {
       // userName: userInfo.userName,
     };
 
-    dispatch(commentActions.addCommentAX(commentInfo, props.id));
+    dispatch(actionCreators.addCommentAX(commentInfo, props.id));
     setComments('');
   };
 
   const deleteComment = (id) => {
     console.log(id);
     console.log('삭제');
-    dispatch(commentActions.deleteCommentAX(id, props.id));
+    dispatch(actionCreators.deleteCommentAX(id, props.id));
   };
 
   const timeForToday = (value) => {
