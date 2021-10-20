@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { actionCreators as userAction } from "../redux/modules/user";
+import _ from "lodash";
 
 import { TextField } from "@mui/material";
 import styled from "styled-components";
@@ -11,31 +12,49 @@ const SignUp = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [username, setUsername] = React.useState();
-  const [name, setName] = React.useState();
-  const [pwd, setPwd] = React.useState();
+  const [username, setUsername] = React.useState("");
+  const [name, setName] = React.useState("");
+  const [pwd, setPwd] = React.useState("");
+  const [checkpwd, setCheckpwd] = React.useState("");
 
+  //입력한 ID 값 가져오기
   const onChangeId = (e) => {
     setUsername(e.target.value);
     console.log(e.target.value);
   };
+  //입력한 Name 값 가져오기
   const onChangeName = (e) => {
     setName(e.target.value);
     console.log(e.target.value);
   };
+  //입력한 Pwd 값 가져오기
   const onChangePwd = (e) => {
     setPwd(e.target.value);
     console.log(e.target.value);
   };
-
-  const ClickSignup = () => {
-    dispatch(userAction.setAccountMW(username, name, pwd));
+  //입력한 CheckPwd 값 가져오기
+  const onChangeCheckPwd = (e) => {
+    setCheckpwd(e.target.value);
   };
-
-  const idCheck = () => {
-    dispatch(userAction.idCheckMW(username));
+  //회원가입하기
+  const signup = () => {
+    if (pwd === checkpwd) {
+      dispatch(userAction.setAccountMW(username, name, pwd));
+    } else {
+      alert("비밀번호가 같지 않습니다. 다시 한번 확인해주세요.");
+    }
   };
+  // //ID중복 확인하기
+  // const idCheck = () => {
+  //   dispatch(userAction.idCheckMW(username));
+  // };
 
+  //Enter키로 Button 이벤트 발생
+  const signupKeyPress = (e) => {
+    if (e.key == "Enter") {
+      signup();
+    }
+  };
   return (
     <Wrap>
       <Container>
@@ -53,7 +72,7 @@ const SignUp = () => {
             margin="dense"
             sx={{ width: "100%" }}
           />
-          <button onClick={idCheck}>아이디 중복확인</button>
+          {/* <button onClick={idCheck}>아이디 중복확인</button> */}
 
           <TextField
             id="outlined-basic"
@@ -68,6 +87,7 @@ const SignUp = () => {
           <TextField
             id="outlined-basic"
             label="비밀번호"
+            type="password"
             variant="outlined"
             size="small"
             onChange={onChangePwd}
@@ -78,13 +98,22 @@ const SignUp = () => {
           <TextField
             id="outlined-basic"
             label="비밀번호 확인"
+            type="password"
             variant="outlined"
             size="small"
+            onChange={onChangeCheckPwd}
+            onKeyPress={signupKeyPress}
             margin="dense"
             sx={{ width: "100%" }}
           />
           <div>
-            <Buttons onClick={ClickSignup}>가입</Buttons>
+            {username === "" || name === "" || pwd === "" || checkpwd === "" ? (
+              <BlockedButton onClick={signup} disabled>
+                로그인하기
+              </BlockedButton>
+            ) : (
+              <AbleButton onClick={signup}>가입</AbleButton>
+            )}
           </div>
         </InputBox>
       </Container>
@@ -136,11 +165,24 @@ const Text = styled.p`
   margin: 0 40px 10px;
   text-align: center;
 `;
-const Buttons = styled.button`
+const AbleButton = styled.button`
   width: 100%;
   height: 30px;
   margin-top: 20px;
   background-color: #0691f3;
+  border: 0px;
+  color: white;
+  font-weight: bold;
+  border-radius: 3px;
+  &:hover {
+    background-color: #0089e9;
+  }
+`;
+const BlockedButton = styled.button`
+  width: 100%;
+  height: 30px;
+  margin-top: 20px;
+  background-color: #b2defb;
   border: 0px;
   color: white;
   font-weight: bold;

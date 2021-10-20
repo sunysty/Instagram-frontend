@@ -34,9 +34,12 @@ const setAccountMW = (username, name, pwd) => {
     apis
       .getAccountAX(user)
       .then((res) => {
-        if (res.result === "success") {
+        if (res.data.result === "success") {
           dispatch(setUser(user));
-          alert(res.data);
+          alert(res.data.data);
+          history.push("/login");
+        } else if (res.data.result === "failed") {
+          alert(res.data.data);
         }
       })
       .catch((error) => {
@@ -68,20 +71,20 @@ const logInMW = (username, pwd) => {
   };
 };
 
-//아디디 중복 확인
-const idCheckMW = (username) => {
-  return function (dispatch, getState, { history }) {
-    apis
-      .getIdCheckAX(username)
-      .then((res) => {
-        dispatch(checkId(res.data.result));
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  };
-};
+// //아디디 중복 확인
+// const idCheckMW = (username) => {
+//   return function (dispatch, getState, { history }) {
+//     apis
+//       .getIdCheckAX(username)
+//       .then((res) => {
+//         dispatch(checkId(res.data.result));
+//         console.log(res.data);
+//       })
+//       .catch((err) => {
+//         console.log(err.message);
+//       });
+//   };
+// };
 
 //Reducer
 export default handleActions(
@@ -114,7 +117,7 @@ const actionCreators = {
   setAccountMW,
   logInMW,
   checkId,
-  idCheckMW,
+  // idCheckMW,
 };
 
 export { actionCreators };

@@ -14,15 +14,19 @@ const LogIn = () => {
   const [username, setUsername] = React.useState("");
   const [pwd, setPwd] = React.useState("");
 
+  //입력한 Id값 값 가져오기
   const onChangeID = (e) => {
     setUsername(e.target.value);
   };
+  //입력한 Pwd 값 가져오기
   const onChangePwd = (e) => {
     setPwd(e.target.value);
   };
+  //로그인하기
   const login = () => {
     dispatch(userAction.logInMW(username, pwd));
   };
+  //Enter키로 Button 이벤트 발생
   const loginKeyPress = (e) => {
     if (e.key == "Enter") {
       login();
