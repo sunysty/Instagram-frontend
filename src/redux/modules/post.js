@@ -92,3 +92,11 @@ const addPostAX = (post) => {
     // };
   };
 };
+
+
+const actionCreators ={
+  addPost,
+  addPostAX
+}
+
+export {actionCreators}
