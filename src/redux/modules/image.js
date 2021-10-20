@@ -8,9 +8,9 @@ const UPLOAD_IMAGE = "UPLOAD_IMAGE";
 const SET_PREVIEW = "SET_PREVIEW";
 
 //Action Creator
-const uploading = createAction(UPLOADING, (uploading) => ({ uploading }));
-const uploadImage = createAction(UPLOAD_IMAGE, (image_url) => ({ image_url }));
-const setPreview = createAction(SET_PREVIEW, (preview) => ({ preview }));
+const uploading = createAction(UPLOADING, (uploading) => ({ uploading }) );
+const uploadImage = createAction(UPLOAD_IMAGE, (image_url) => ({ image_url }) );
+const setPreview = createAction(SET_PREVIEW, (preview) => ({ preview }) );
 
 //Initial State
 const initialState = {
@@ -56,9 +56,11 @@ export default handleActions(
   },
   initialState
 );
+
 const actionCreators = {
   uploadImageFB,
   uploadImage,
   setPreview,
 };
+
 export { actionCreators };
