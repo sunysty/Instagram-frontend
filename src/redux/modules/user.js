@@ -60,8 +60,6 @@ const logInMW = (username, pwd) => {
           cookies.set("token", res.data.data);
           dispatch(logIn(user));
           history.push("/");
-        } else {
-          alert(res.data.result);
         }
       })
       .catch((error) => {

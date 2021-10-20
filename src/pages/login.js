@@ -11,23 +11,24 @@ const LogIn = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [username, setUsername] = React.useState();
-  const [pwd, setPwd] = React.useState();
+  const [username, setUsername] = React.useState("");
+  const [pwd, setPwd] = React.useState("");
 
   const onChangeID = (e) => {
     setUsername(e.target.value);
-    console.log(e.target.value);
   };
   const onChangePwd = (e) => {
     setPwd(e.target.value);
-    console.log(e.target.value);
   };
   const login = () => {
-    if (username === "" || pwd === "") {
-      alert("비밀번호를 확인해 주세요");
-    }
     dispatch(userAction.logInMW(username, pwd));
   };
+  const loginKeyPress = (e) => {
+    if (e.key == "Enter") {
+      login();
+    }
+  };
+
   return (
     <React.Fragment>
       <Wrap>
@@ -50,16 +51,24 @@ const LogIn = () => {
 
               <TextField
                 id="outlined-basic"
+                type="password"
                 label="비밀번호"
                 variant="outlined"
                 onChange={onChangePwd}
                 size="small"
                 margin="dense"
                 sx={{ width: "100%" }}
+                onKeyPress={loginKeyPress}
               />
 
               <div>
-                <Buttons onClick={login}>로그인하기</Buttons>
+                {username === "" || pwd === "" ? (
+                  <BlockedButton onClick={login} disabled>
+                    로그인하기
+                  </BlockedButton>
+                ) : (
+                  <AbleButton onClick={login}>로그인하기</AbleButton>
+                )}
               </div>
             </InputBox>
           </Container>
@@ -115,11 +124,24 @@ const Image = styled.img`
 const InputBox = styled.div`
   margin: 30px;
 `;
-const Buttons = styled.button`
+const AbleButton = styled.button`
   width: 100%;
   height: 30px;
   margin-top: 20px;
   background-color: #0691f3;
+  border: 0px;
+  color: white;
+  font-weight: bold;
+  border-radius: 3px;
+  &:hover {
+    background-color: #0089e9;
+  }
+`;
+const BlockedButton = styled.button`
+  width: 100%;
+  height: 30px;
+  margin-top: 20px;
+  background-color: #b2defb;
   border: 0px;
   color: white;
   font-weight: bold;
