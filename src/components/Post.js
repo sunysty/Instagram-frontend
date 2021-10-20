@@ -48,11 +48,19 @@ const Post = (props) => {
     setDetailModal(false);
   };
 
+  const openChangeModal = () => {
+    setChangeModal(true);
+  };
+
+  const closeChangeModal = () => {
+    setChangeModal(false);
+  };
+
   const addComment = () => {
     console.log(comments);
     let commentInfo = {
       comment: comments,
-      // userName: userInfo.userName,
+      userName: userInfo.userName,
     };
 
     dispatch(commentActions.addCommentAX(commentInfo, props.id));
@@ -110,11 +118,15 @@ const Post = (props) => {
             ) : null} */}
           </PostHeader>
           <PostBody>
-            <PostImage src={props.image} onClick={openDetailModal} />
+            <PostImage src={props.image} />
           </PostBody>
           <ButtonIcons>
             <TwoIcons>
-              <CloudQueueIcon padding-left='16px' padding-right='16px' />
+              <CloudQueueIcon
+                padding-left='16px'
+                padding-right='16px'
+                onClick={openDetailModal}
+              />
               <SendIcon padding-left='16px' />
             </TwoIcons>
             <BookmarkBorderIcon cursor='pointer' />
@@ -163,6 +175,27 @@ const Post = (props) => {
       </PostInner>
     </React.Fragment>
   );
+};
+
+Post.defaultProps = {
+  id: null,
+  userInfo: {
+    userName: '',
+    userProfile: '',
+  },
+  profile_image: '',
+  image:
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvym74Wxodxh3tgGdKabNesjo2-qYASOHpMTNQepHe1-w2B8IkksvY6c5iBUINMmn_FiA&usqp=CAU',
+
+  replyInfo: {
+    userName: 'hh99',
+    reply_input: '예쁘네요',
+    reply_cancel: '',
+    reply_dt: '2021-10-20 09:00:32',
+    is_me: false,
+  },
+  content: '13조 클론코딩',
+  insert_dt: '2021-10-20 11:00:32',
 };
 
 const PostInner = styled.div`
