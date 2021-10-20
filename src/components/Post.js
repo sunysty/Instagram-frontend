@@ -1,20 +1,20 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 //컴포넌트
-import DetailModal from "./DetailModal";
-import PostModal from "./PostModal";
+import DetailModal from './DetailModal';
+import PostModal from './PostModal';
 // 스타일링
-import styled from "styled-components";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import CloudQueueIcon from "@material-ui/icons/CloudQueue";
-import SendIcon from "@material-ui/icons/Send";
-import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
+import styled from 'styled-components';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import CloudQueueIcon from '@material-ui/icons/CloudQueue';
+import SendIcon from '@material-ui/icons/Send';
+import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 //훅
-import { history } from "../redux/configStore";
-import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as commentActions } from "../redux/modules/comment";
+import { history } from '../redux/configStore';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionCreators as commentActions } from '../redux/modules/comment';
 
 const Post = (props) => {
   const dispatch = useDispatch();
@@ -65,12 +65,12 @@ const Post = (props) => {
     };
 
     dispatch(commentActions.addCommentAX(commentInfo, props.id));
-    setComments("");
+    setComments('');
   };
 
   const deleteComment = (id) => {
     console.log(id);
-    console.log("삭제");
+    console.log('삭제');
     dispatch(commentActions.deleteCommentAX(id, props.id));
   };
 
@@ -81,7 +81,7 @@ const Post = (props) => {
     const betweenTime = Math.floor(
       (today.getTime() - timeValue.getTime()) / 1000 / 60
     );
-    if (betweenTime < 1) return "방금전";
+    if (betweenTime < 1) return '방금전';
     if (betweenTime < 60) {
       return `${betweenTime}분전`;
     }
@@ -124,13 +124,16 @@ const Post = (props) => {
           <ButtonIcons>
             <TwoIcons>
               <CloudQueueIcon
-                padding-left="16px"
-                padding-right="16px"
-                onClick={openDetailModal}
+                padding-left='16px'
+                padding-right='16px'
+                cursor='pointer'
+                onClick={() => {
+                  openDetailModal();
+                }}
               />
-              <SendIcon padding-left="16px" />
+              <SendIcon padding-left='16px' />
             </TwoIcons>
-            <BookmarkBorderIcon cursor="pointer" />
+            <BookmarkBorderIcon cursor='pointer' />
           </ButtonIcons>
           <BottomAuthorCmtBox>
             <AuthorCmtBox>
@@ -161,19 +164,28 @@ const Post = (props) => {
           <InsertTime>{timeForToday(props.insert_dt)}</InsertTime>
           <CommentInputBox>
             <CommentInput
-              type="text"
-              placeholder="댓글달기..."
+              type='text'
+              placeholder='댓글달기...'
               onChang={selectComment}
               value={comments}
             ></CommentInput>
             {submit ? (
               <UploadBtn onClick={addComment}>게시</UploadBtn>
             ) : (
-              <UploadBtn style={{ opacity: "0.3" }}>게시</UploadBtn>
+              <UploadBtn style={{ opacity: '0.3' }}>게시</UploadBtn>
             )}
           </CommentInputBox>
         </PostBox>
       </PostInner>
+      {is_modal ? (
+        <DetailModal
+          close={closeDetailModal}
+          {...props}
+          is_comment={is_comment}
+          comment_list={comment_list}
+          deleteComment={deleteComment}
+        />
+      ) : null}
     </React.Fragment>
   );
 };
@@ -181,22 +193,22 @@ const Post = (props) => {
 Post.defaultProps = {
   id: null,
   userInfo: {
-    userName: "",
-    userProfile: "",
+    userName: '',
+    userProfile: '',
   },
-  profile_image: "",
+  profile_image: '',
   image:
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvym74Wxodxh3tgGdKabNesjo2-qYASOHpMTNQepHe1-w2B8IkksvY6c5iBUINMmn_FiA&usqp=CAU",
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvym74Wxodxh3tgGdKabNesjo2-qYASOHpMTNQepHe1-w2B8IkksvY6c5iBUINMmn_FiA&usqp=CAU',
 
   replyInfo: {
-    userName: "hh99",
-    reply_input: "예쁘네요",
-    reply_cancel: "",
-    reply_dt: "2021-10-20 09:00:32",
+    userName: 'hh99',
+    reply_input: '예쁘네요',
+    reply_cancel: '',
+    reply_dt: '2021-10-20 09:00:32',
     is_me: false,
   },
-  content: "13조 클론코딩",
-  insert_dt: "2021-10-20 11:00:32",
+  content: '13조 클론코딩',
+  insert_dt: '2021-10-20 11:00:32',
 };
 
 const PostInner = styled.div`
@@ -247,7 +259,7 @@ const ProfileCircle = styled.div`
   width: 32px;
   margin: 0px 14px 0px 0px;
   border-radius: 50%;
-  background-image: url("${(props) => props.src}");
+  background-image: url('${(props) => props.src}');
   background-size: cover;
   cursor: pointer;
 `;

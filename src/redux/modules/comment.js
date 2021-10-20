@@ -126,10 +126,10 @@ export default handleActions(
   initialState
 );
 
-const actionCreators = {
+const commentActions = {
   addCommentAX,
   getCommentAX,
   deleteCommentAX,
 };
 
-export { actionCreators };
+export { commentActions };
