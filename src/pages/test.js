@@ -10,6 +10,7 @@ const Test = () => {
       <button
         onClick={() => {
           cookies.remove("token");
+          cookies.remove("is_login");
           history.push("/login");
         }}
       >

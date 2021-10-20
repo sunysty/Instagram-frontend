@@ -59,6 +59,7 @@ const logInMW = (username, pwd) => {
       .then((res) => {
         if (res.data.result === "success") {
           cookies.set("token", res.data.data);
+          cookies.set("is_login", true);
           dispatch(logIn(user));
           history.push("/");
         }
@@ -85,10 +86,13 @@ export default handleActions(
     [LOGIN]: (state, action) =>
       produce(state, (draft) => {
         draft.user = action.payload.user;
+        draft.is_login = true;
+        console.log(state);
       }),
     [LOGOUT]: (state, action) =>
       produce(state, (draft) => {
         draft.user = null;
+        draft.is_login = false;
       }),
   },
   initialState

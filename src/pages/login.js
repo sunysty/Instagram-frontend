@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { actionCreators as userAction } from "../redux/modules/user";
+import { Cookies } from "react-cookie";
 
 import styled from "styled-components";
 import Button from "@mui/material/Button";
