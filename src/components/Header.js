@@ -2,10 +2,18 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
 import { useHistory } from "react-router-dom";
+import { Cookies } from "react-cookie";
+
+import { BsPlusSquareFill } from "react-icons/bs";
+import { RiHome2Fill } from "react-icons/ri";
+
 import { Grid, Container } from "../elements/index";
 import PostModal from "../components/PostModal";
 import Main from "../pages/Main";
+
 const Header = () => {
+
+  const cookies = new Cookies();
   const history = useHistory();
   return (
     <>
@@ -17,9 +25,18 @@ const Header = () => {
             height="39px"
           ></img>
           <div>
-            <Grid is_flex justify='space-between' width='100px'>
+            <Grid is_flex justify="space-between" width="100px">
               <RiHome2Fill />
               <BsPlusSquareFill />
+              <button
+                onClick={() => {
+                  cookies.remove("token");
+                  cookies.remove("is_login");
+                  history.push("/login");
+                }}
+              >
+                로그아웃
+              </button>
             </Grid>
           </div>
         </Grid>
@@ -27,4 +44,5 @@ const Header = () => {
     </>
   );
 };
+
 export default Header;

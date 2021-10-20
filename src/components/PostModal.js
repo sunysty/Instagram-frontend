@@ -9,28 +9,29 @@ import apis from "axios";
 
 const PostModal = () => {
   const dispatch = useDispatch();
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [textarea, setTextarea] = useState("");
+  const [file, setFile] = useState(null);
+  const [contents, setContents] = useState("");
 
   //파일을 선택하는 함수
   const fileChange = (e) => {
-    setSelectedFile(e.target.files[0]);
+    setFile(e.target.files[0]);
   };
 
   //텍스트값을 저장하는 함수
-  const textareaChange = (e) => {
-    setTextarea(e.target.value);
-    console.log(textarea(e.target.value), "텍스트값을 변경합니다");
+  const contentsChange = (e) => {
+    setContents(e.target.value);
+    console.log(setContents(e.target.value), "텍스트값을 변경합니다");
   };
 
   //파일을 업로드하는 함수
   const fileUpload = (e) => {
-    const form_data = new FormData();
-    form_data.append("선택한파일", selectedFile);
-    form_data.append("작성한글", textarea);
-    console.log(selectedFile, textarea, "사진,글 업로드");
+    let formData= new FormData();
+    // const formData = new FormData();
+    // formData.append(file);
+    // formData.append(contents);
+    console.log(file, contents, "사진,글 업로드");
 
-    dispatch(postActions.addPostAX(form_data));
+    dispatch(postActions.addPostAX(formData));
   };
 
   return (
@@ -39,9 +40,8 @@ const PostModal = () => {
         {/* <img src={imageUrl}/> */}
         <input type="file" onChange={fileChange} accept=".gif, .jpg, .png" />
       </div>
-      <textarea onChange={textareaChange} />
+      <textarea onChange={contentsChange} />
       <button onClick={fileUpload}>업로드</button>
-      <button onClick={textareaChange}>텍스트테스트</button>
     </ModalContainer>
   );
 };

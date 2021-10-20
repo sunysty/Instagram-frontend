@@ -1,16 +1,29 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Main from "./pages/Main";
+import { Route } from "react-router";
+import { BrowserRouter, Switch } from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
+import { history } from "./redux/configStore";
+import { Cookies } from "react-cookie";
+
 import PostModal from "./components/PostModal";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Main from "./pages/Main";
 
 function App() {
+  const cookies = new Cookies();
+  const loginState = cookies.get("is_login");
+
   return (
-    <BrowserRouter>
-      <Switch>
+    <ConnectedRouter history={history}>
+      {loginState ? (
         <Route path="/" exact component={Main} />
-        <Route path="/postmodal" exact component={PostModal} />
-      </Switch>
-    </BrowserRouter>
+      ) : (
+        <Route path="/login" exact component={Login} />
+      )}
+      <Route path="/signup" exact component={Signup} />
+      <Route path="/postmodal" exact component={PostModal} />
+    </ConnectedRouter>
   );
 }
 
