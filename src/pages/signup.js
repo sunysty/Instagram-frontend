@@ -38,17 +38,19 @@ const SignUp = () => {
   };
   //회원가입하기
   const signup = () => {
-    if (pwd === checkpwd) {
-      dispatch(userAction.setAccountMW(username, name, pwd));
-    } else {
+    let reg = /^[0-9a-zA-Z]([-_.0-9a-zA-Z])*/;
+    const checkText = reg.test(username);
+
+    if (pwd !== checkpwd) {
       alert("비밀번호가 같지 않습니다. 다시 한번 확인해주세요.");
+    } else if (!checkText) {
+      alert("아이디의 형식이 맞지 않습니다.");
+    } else if (username.length < 4) {
+      alert("4자 이상 입력해주세요");
+    } else {
+      dispatch(userAction.setAccountMW(username, name, pwd));
     }
   };
-  // //ID중복 확인하기
-  // const idCheck = () => {
-  //   dispatch(userAction.idCheckMW(username));
-  // };
-
   //Enter키로 Button 이벤트 발생
   const signupKeyPress = (e) => {
     if (e.key == "Enter") {
@@ -72,8 +74,6 @@ const SignUp = () => {
             margin="dense"
             sx={{ width: "100%" }}
           />
-          {/* <button onClick={idCheck}>아이디 중복확인</button> */}
-
           <TextField
             id="outlined-basic"
             label="성명"
@@ -83,7 +83,6 @@ const SignUp = () => {
             margin="dense"
             sx={{ width: "100%" }}
           />
-
           <TextField
             id="outlined-basic"
             label="비밀번호"
@@ -94,7 +93,6 @@ const SignUp = () => {
             margin="dense"
             sx={{ width: "100%" }}
           />
-
           <TextField
             id="outlined-basic"
             label="비밀번호 확인"
@@ -146,14 +144,12 @@ const Container = styled.div`
   margin: 0px auto 10px;
   background-color: white;
 `;
-
 const Images = styled.img`
   width: 200px;
   height: auto;
   margin: 0px auto 12px;
   display: block;
 `;
-
 const InputBox = styled.div`
   margin: 30px;
 `;
@@ -188,7 +184,6 @@ const BlockedButton = styled.button`
   font-weight: bold;
   border-radius: 3px;
 `;
-
 const LoginBox = styled.div`
   border: 1px solid #dbdbdb;
   width: 350px;

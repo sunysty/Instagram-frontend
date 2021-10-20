@@ -7,7 +7,6 @@ import { Cookies } from "react-cookie";
 const SET_USER = "SET_USER";
 const LOGIN = "LOGIN";
 const LOGOUT = "LOGOUT";
-const CHECK_ID = "CHECK_ID";
 
 const initialState = {
   is_login: false,
@@ -21,7 +20,6 @@ const initialState = {
 //Action Creator
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const logIn = createAction(LOGIN, (user) => ({ user }));
-const checkId = createAction(CHECK_ID, (username) => ({ username }));
 
 //회원가입 등록
 const setAccountMW = (username, name, pwd) => {
@@ -71,21 +69,6 @@ const logInMW = (username, pwd) => {
   };
 };
 
-// //아디디 중복 확인
-// const idCheckMW = (username) => {
-//   return function (dispatch, getState, { history }) {
-//     apis
-//       .getIdCheckAX(username)
-//       .then((res) => {
-//         dispatch(checkId(res.data.result));
-//         console.log(res.data);
-//       })
-//       .catch((err) => {
-//         console.log(err.message);
-//       });
-//   };
-// };
-
 //Reducer
 export default handleActions(
   {
@@ -116,8 +99,6 @@ const actionCreators = {
   logIn,
   setAccountMW,
   logInMW,
-  checkId,
-  // idCheckMW,
 };
 
 export { actionCreators };

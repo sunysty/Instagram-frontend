@@ -16,7 +16,6 @@
     "history": "4.10.1",
     "http-proxy-middleware": "^2.0.1",
     "immer": "^9.0.6",
-    "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-cookie": "^4.1.1",
