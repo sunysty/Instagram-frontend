@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
-
-import DetailModal from './DetailModal';
-
-import styled from 'styled-components';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import CloudQueueIcon from '@material-ui/icons/CloudQueue';
-import SendIcon from '@material-ui/icons/Send';
-import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
-
-import { history } from '../redux/configStore';
-import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as commentActions } from '../redux/modules/comment';
+import React, { useState } from "react";
+//컴포넌트
+import DetailModal from "./DetailModal";
+import PostModal from "./PostModal";
+// 스타일링
+import styled from "styled-components";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import CloudQueueIcon from "@material-ui/icons/CloudQueue";
+import SendIcon from "@material-ui/icons/Send";
+import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
+//훅
+import { history } from "../redux/configStore";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as commentActions } from "../redux/modules/comment";
 
 const Post = (props) => {
   const dispatch = useDispatch();
@@ -56,12 +57,12 @@ const Post = (props) => {
     };
 
     dispatch(commentActions.addCommentAX(commentInfo, props.id));
-    setComments('');
+    setComments("");
   };
 
   const deleteComment = (id) => {
     console.log(id);
-    console.log('삭제');
+    console.log("삭제");
     dispatch(commentActions.deleteCommentAX(id, props.id));
   };
 
@@ -72,7 +73,7 @@ const Post = (props) => {
     const betweenTime = Math.floor(
       (today.getTime() - timeValue.getTime()) / 1000 / 60
     );
-    if (betweenTime < 1) return '방금전';
+    if (betweenTime < 1) return "방금전";
     if (betweenTime < 60) {
       return `${betweenTime}분전`;
     }
@@ -114,10 +115,10 @@ const Post = (props) => {
           </PostBody>
           <ButtonIcons>
             <TwoIcons>
-              <CloudQueueIcon padding-left='16px' padding-right='16px' />
-              <SendIcon padding-left='16px' />
+              <CloudQueueIcon padding-left="16px" padding-right="16px" />
+              <SendIcon padding-left="16px" />
             </TwoIcons>
-            <BookmarkBorderIcon cursor='pointer' />
+            <BookmarkBorderIcon cursor="pointer" />
           </ButtonIcons>
           <BottomAuthorCmtBox>
             <AuthorCmtBox>
@@ -148,15 +149,15 @@ const Post = (props) => {
           <InsertTime>{timeForToday(props.insert_dt)}</InsertTime>
           <CommentInputBox>
             <CommentInput
-              type='text'
-              placeholder='댓글달기...'
+              type="text"
+              placeholder="댓글달기..."
               onChang={selectComment}
               value={comments}
             ></CommentInput>
             {submit ? (
               <UploadBtn onClick={addComment}>게시</UploadBtn>
             ) : (
-              <UploadBtn style={{ opacity: '0.3' }}>게시</UploadBtn>
+              <UploadBtn style={{ opacity: "0.3" }}>게시</UploadBtn>
             )}
           </CommentInputBox>
         </PostBox>
@@ -213,7 +214,7 @@ const ProfileCircle = styled.div`
   width: 32px;
   margin: 0px 14px 0px 0px;
   border-radius: 50%;
-  background-image: url('${(props) => props.src}');
+  background-image: url("${(props) => props.src}");
   background-size: cover;
   cursor: pointer;
 `;
