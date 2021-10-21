@@ -61,31 +61,13 @@ const PostModal = () => {
     };
 
     reader.readAsDataURL(image_target);
-
-    console.log(reader, "리더");
-    console.log(image_target, "타겟이미지");
-    console.log(image, "이미지");
   };
-
-  console.log(image, "image스테이트에 저장된 값이 뭐라고뜨나요?");
-  console.log(preview, "결과값");
 
   //textarea 변화시키는 함수
   const contentsChange = (e) => {
     setContents(e.target.value);
     dispatch(postActions.addPost(contentsChange));
   };
-
-  /*
-  //파일을 업로드하는 함수
-  const postUpload = () => {
-    const formData = new FormData();
-    formData.append("image", image);
-    formData.append("contents", contents);
-
-    dispatch(postActions.addPost(formData));
-  };
-  */
 
   return (
     <ModalContainer>
@@ -115,9 +97,9 @@ const PostModal = () => {
                   onChange={selectFile}
                   type="file"
                 />
-                <label for="image">
+                {/* <label for="image">
                   <FileUploadIcon />
-                </label>
+                </label> */}
               </Container>
             </ImageContainer>
 
@@ -152,10 +134,8 @@ const PostModal = () => {
 
 const Container = styled.section`
   box-sizing: border-box;
-  padding-top: 100px;
   margin: 0 auto;
-  width: auto;
-  position: relative;
+  width: 1000px;
 `;
 
 const ImageContainer = styled.div`
@@ -165,19 +145,20 @@ const ImageContainer = styled.div`
   width: 65%;
   display: flex;
   border: 1px solid #eee;
+  height: 630px;
 `;
 
 const TextContainer = styled.div`
   background-size: contain;
   width: 35%;
-  height: 637px;
+  height: 630px;
   border: 1px solid #eee;
   box-sizing: border-box;
   margin: 0 auto;
 `;
 
 const Textarea = styled.textarea`
-  width: 100%;
+  width: 35%;
   height: 300px;
   padding: 10px;
   box-sizing: border-box;
@@ -185,28 +166,26 @@ const Textarea = styled.textarea`
 `;
 
 const ModalContainer = styled.form`
-  position: fixed;
-  top: 0;
-  left: 10vw;
-  width: 80vw;
+  position: relative;
+  width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0);
 `;
 
 const PreviewImage = styled.img`
-  width: 400px;
-  height: 300px;
-  padding: 50px;
+  width: 600px;
+  height: 400px;
+  padding: 25px;
 `;
 
 const Button = styled.button`
   background: #0097f9;
-  width: 90%;
+  width: 25%;
   box-sizing: border-box;
   color: #fff;
   border: none;
   padding: 10px;
-  margin: 130px 5%;
+  margin: 210px 5% 0;
   font-size: 15px;
   cursor: pointer;
 `;
