@@ -1,19 +1,19 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
-import { actionCreators as userAction } from "../redux/modules/user";
-import { Cookies } from "react-cookie";
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
+import { actionCreators as userAction } from '../redux/modules/user';
+import { Cookies } from 'react-cookie';
 
-import styled from "styled-components";
-import Button from "@mui/material/Button";
-import { TextField } from "@mui/material";
+import styled from 'styled-components';
+import Button from '@mui/material/Button';
+import { TextField } from '@mui/material';
 
 const LogIn = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [username, setUsername] = React.useState("");
-  const [pwd, setPwd] = React.useState("");
+  const [username, setUsername] = React.useState('');
+  const [pwd, setPwd] = React.useState('');
 
   //입력한 Id값 값 가져오기
   const onChangeID = (e) => {
@@ -29,7 +29,7 @@ const LogIn = () => {
   };
   //Enter키로 Button 이벤트 발생
   const loginKeyPress = (e) => {
-    if (e.key == "Enter") {
+    if (e.key == 'Enter') {
       login();
     }
   };
@@ -37,37 +37,37 @@ const LogIn = () => {
   return (
     <React.Fragment>
       <Wrap>
-        <Image src="img/instarPicture.png" />
+        <Image src='img/instarPicture.png' />
         <BoxGrid>
           <Container>
             <div>
-              <Logo src="https://fontmeme.com/images/instagram-new-logo.png" />
+              <Logo src='https://fontmeme.com/images/instagram-new-logo.png' />
             </div>
             <InputBox>
               <TextField
-                id="outlined-basic"
-                label="아이디"
-                variant="outlined"
+                id='outlined-basic'
+                label='아이디'
+                variant='outlined'
                 onChange={onChangeID}
-                size="small"
-                margin="dense"
-                sx={{ width: "100%" }}
+                size='small'
+                margin='dense'
+                sx={{ width: '100%' }}
               />
 
               <TextField
-                id="outlined-basic"
-                type="password"
-                label="비밀번호"
-                variant="outlined"
+                id='outlined-basic'
+                type='password'
+                label='비밀번호'
+                variant='outlined'
                 onChange={onChangePwd}
-                size="small"
-                margin="dense"
-                sx={{ width: "100%" }}
+                size='small'
+                margin='dense'
+                sx={{ width: '100%' }}
                 onKeyPress={loginKeyPress}
               />
 
               <div>
-                {username === "" || pwd === "" ? (
+                {username === '' || pwd === '' ? (
                   <BlockedButton onClick={login} disabled>
                     로그인하기
                   </BlockedButton>
@@ -81,9 +81,9 @@ const LogIn = () => {
             계정이 있으신가요?
             <Button
               onClick={() => {
-                history.push("/signup");
+                history.push('/signup');
               }}
-              sx={{ margin: "-7px" }}
+              sx={{ margin: '-7px' }}
             >
               가입하기
             </Button>
@@ -138,6 +138,7 @@ const AbleButton = styled.button`
   color: white;
   font-weight: bold;
   border-radius: 3px;
+  cursor: pointer;
   &:hover {
     background-color: #0089e9;
   }

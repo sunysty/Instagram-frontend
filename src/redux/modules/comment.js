@@ -130,6 +130,9 @@ const actionCreators = {
   addCommentAX,
   getCommentAX,
   deleteCommentAX,
+  addComment,
+  deleteComment,
+  setComment,
 };
 
 export { actionCreators };

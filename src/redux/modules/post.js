@@ -4,6 +4,7 @@ import axios from "axios";
 import "moment";
 import moment from "moment";
 import user from "./user";
+import comment from "./comment";
 
 // 목록 redux
 const SET_POST = "SET_POST";
@@ -143,6 +144,7 @@ const getAllPostAX = (history) => {
 //     dispatch(setPost(post_list));
 //   };
 // };
+
 const deletePostAX = (post_id) => {
   return function (dispatch) {
     const options = {
@@ -166,6 +168,7 @@ const deletePostAX = (post_id) => {
       });
   };
 };
+
 const editPostAX = (content, post_id) => {
   return function (dispatch) {
     const options = {
@@ -229,6 +232,7 @@ export default handleActions(
         );
         draft.list[idx].comments.push("add");
       }),
+
     [OLD_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         let idx = draft.list.findIndex(
@@ -249,4 +253,5 @@ const actionCreators = {
   newComment,
   oldComment,
 };
+
 export { actionCreators };

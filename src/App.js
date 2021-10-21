@@ -1,12 +1,16 @@
 import React from "react";
 import { Redirect, Route } from "react-router";
 import { ConnectedRouter } from "connected-react-router";
-import { history } from "./redux/configStore";
-import { Cookies } from "react-cookie";
+import { BrowserRouter, Switch } from "react-router-dom";
 
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Main from "./pages/Main";
+import { Cookies } from "react-cookie";
+import { history } from "./redux/configStore";
+
+import PostModal from "./components/PostModal";
+import { Login, Signup, Main } from "./pages/index";
+// import Login from './pages/Login';
+// import Signup from './pages/Signup';
+// import Main from './pages/Main';
 
 function App() {
   const cookies = new Cookies();
@@ -23,6 +27,7 @@ function App() {
       <Route path="/signup" exact component={Signup}>
         {loginState ? <Redirect to="/" /> : null}
       </Route>
+      <Route path="/postmodal" exact component={PostModal} />
     </ConnectedRouter>
   );
 }

@@ -1,13 +1,18 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
-import { Grid, Container } from "../elements/index";
+import { useHistory } from "react-router-dom";
+import { Cookies } from "react-cookie";
+
 import { BsPlusSquareFill } from "react-icons/bs";
 import { RiHome2Fill } from "react-icons/ri";
-import { Cookies } from "react-cookie";
-import { useHistory } from "react-router";
+
+import { Grid, Container } from "../elements/index";
+import PostModal from "../components/PostModal";
+import Main from "../pages/Main";
 
 const Header = () => {
+
   const cookies = new Cookies();
   const history = useHistory();
   return (

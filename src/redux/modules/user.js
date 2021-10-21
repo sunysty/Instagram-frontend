@@ -1,14 +1,14 @@
-import { createAction, handleActions } from "redux-actions";
-import { apis } from "../../shared/axios";
-import { Cookies } from "react-cookie";
-import { produce } from "immer";
-import { history } from "../configStore";
-import axios from "axios";
+import { createAction, handleActions } from 'redux-actions';
+import { apis } from '../../shared/axios';
+import { Cookies } from 'react-cookie';
+import { produce } from 'immer';
+import { history } from '../configStore';
+import axios from 'axios';
 
 //Action
-const SET_USER = "SET_USER";
-const LOGIN = "LOGIN";
-const LOGOUT = "LOGOUT";
+const SET_USER = 'SET_USER';
+const LOGIN = 'LOGIN';
+const LOGOUT = 'LOGOUT';
 
 const initialState = {
   user: {
@@ -34,11 +34,11 @@ const setAccountMW = (username, name, pwd) => {
     apis
       .getAccountAX(user)
       .then((res) => {
-        if (res.data.result === "success") {
+        if (res.data.result === 'success') {
           dispatch(setUser(user));
           alert(res.data.data);
-          history.push("/login");
-        } else if (res.data.result === "failed") {
+          history.push('/login');
+        } else if (res.data.result === 'failed') {
           alert(res.data.data);
         }
       })
@@ -59,12 +59,12 @@ const logInMW = (username, pwd) => {
     apis
       .logInAX(user)
       .then((res) => {
-        if (res.data.result === "success") {
-          cookies.set("token", res.data.data);
-          cookies.set("is_login", true);
+        if (res.data.result === 'success') {
+          cookies.set('token', res.data.data);
+          cookies.set('is_login', true);
           dispatch(logIn(user));
-          history.push("/");
-        } else if (res.data.result === "failed") {
+          history.replace('/');
+        } else if (res.data.result === 'failed') {
           alert(res.data.data);
         }
       })

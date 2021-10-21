@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-
+//컴포넌트
 import DetailModal from "./DetailModal";
-
+import PostModal from "./PostModal";
+// 스타일링
 import styled from "styled-components";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
@@ -10,10 +11,10 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import CloudQueueIcon from "@material-ui/icons/CloudQueue";
 import SendIcon from "@material-ui/icons/Send";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
-
+//훅
 import { history } from "../redux/configStore";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as commentActions } from "../redux/modules/comment";
+import { actionCreators } from "../redux/modules/comment";
 
 const Post = (props) => {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ const Post = (props) => {
   // const is_like = idx !== -1 ? true : false;
 
   React.useEffect(() => {
-    dispatch(commentActions.getCommentAX(props.id));
+    dispatch(actionCreators.getCommentAX(props.id));
   }, []);
 
   // 댓글, 모달창 제어함수
@@ -63,14 +64,14 @@ const Post = (props) => {
       // userName: userInfo.userName,
     };
 
-    dispatch(commentActions.addCommentAX(commentInfo, props.id));
+    dispatch(actionCreators.addCommentAX(commentInfo, props.id));
     setComments("");
   };
 
   const deleteComment = (id) => {
     console.log(id);
     console.log("삭제");
-    dispatch(commentActions.deleteCommentAX(id, props.id));
+    dispatch(actionCreators.deleteCommentAX(id, props.id));
   };
 
   const timeForToday = (value) => {
@@ -125,7 +126,10 @@ const Post = (props) => {
               <CloudQueueIcon
                 padding-left="16px"
                 padding-right="16px"
-                onClick={openDetailModal}
+                cursor="pointer"
+                onClick={() => {
+                  openDetailModal();
+                }}
               />
               <SendIcon padding-left="16px" />
             </TwoIcons>
@@ -173,6 +177,15 @@ const Post = (props) => {
           </CommentInputBox>
         </PostBox>
       </PostInner>
+      {is_modal ? (
+        <DetailModal
+          close={closeDetailModal}
+          {...props}
+          is_comment={is_comment}
+          comment_list={comment_list}
+          deleteComment={deleteComment}
+        />
+      ) : null}
     </React.Fragment>
   );
 };

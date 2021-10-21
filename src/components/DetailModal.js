@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import styled from 'styled-components';
-import CloseIcon from '@material-ui/icons/Close';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import { actionCreators as commentActions } from '../redux/modules/comment';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import styled from "styled-components";
+import CloseIcon from "@material-ui/icons/Close";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import { actionCreators as commentActions } from "../redux/modules/comment";
 
 const DetailModal = (props) => {
   const dispatch = useDispatch();
-  const [comments, setComments] = useState;
+  const [comments, setComments] = useState();
   const submit = comments ? true : false;
   console.log(props);
   const selectComment = (e) => {
@@ -20,18 +20,18 @@ const DetailModal = (props) => {
     console.log(comments);
     let commentInfo = {
       comment: comments,
-      userName: props.userInfo.userName,
+      userName: props.userName,
       // 프로필 (마이페이지) 만들게되면 url 삽입
     };
-    dispatch(commentActions.addCommentDB(commentInfo, props.id));
-    setComments('');
+    dispatch(commentActions.addCommentAX(commentInfo, props.id));
+    setComments("");
   };
   return (
     <React.Fragment>
       <Component onClick={props.close} />
       <ExitContainer>
         <ExitButton onClick={props.close}>
-          <CloseIcon fontSize='large' />
+          <CloseIcon fontSize="large" />
         </ExitButton>
       </ExitContainer>
 
@@ -45,7 +45,7 @@ const DetailModal = (props) => {
             </ModalLeftHeader>
             {props.userName === props.is_me ? (
               <ModalRightHeader onClick={props.openChangeModal}>
-                <MoreHorizIcon height='14px' width='14px' cursor='pointer' />
+                <MoreHorizIcon height="14px" width="14px" cursor="pointer" />
               </ModalRightHeader>
             ) : null}
           </ModalHeader>
@@ -61,7 +61,7 @@ const DetailModal = (props) => {
                           <ModalAuthor>{c.userName}</ModalAuthor>
                           {c.comment}
                         </div>
-                        {c.userName === props.userInfo.userName ? (
+                        {c.userName === props.userName ? (
                           <CmtDeleteBtn
                             onClick={() => {
                               props.deleteComment(c.id);
@@ -78,15 +78,15 @@ const DetailModal = (props) => {
           </ModalCmtBox>
           <ModalCmtInputBox>
             <ModalCmtInput
-              type='text'
-              placeholder='댓글달기...'
+              type="text"
+              placeholder="댓글달기..."
               onChange={selectComment}
               value={comments}
             />
             {submit ? (
               <ModalUpload onClick={addComment}>게시</ModalUpload>
             ) : (
-              <ModalUpload style={{ opacity: '0.3' }}>게시</ModalUpload>
+              <ModalUpload style={{ opacity: "0.3" }}>게시</ModalUpload>
             )}
           </ModalCmtInputBox>
         </ModalRightContainer>
@@ -161,7 +161,7 @@ const ModalHeader = styled.div`
   padding: 16px;
   border-bottom: 1px solid #efefef;
   display: flex;
-  align-item: center;
+  align-items: center;
   justify-content: space-between;
 `;
 
@@ -221,9 +221,9 @@ const ModalCmtBox = styled.div`
   height: 480px;
   // 댓글이 많으면 스크롤로 아래부분이 위로 올라가게 하면서 댓글이 보여지게끔 함
   overflow-y: scroll;
-  :: -webkit-scrollbar {
+  /* :: -webkit-scrollbar {
     display: none;
-  }
+  } */
 `;
 
 const ModalCmt = styled.div`
