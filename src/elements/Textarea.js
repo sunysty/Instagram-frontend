@@ -1,7 +1,17 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 const Textarea = (props) => {
-  const { placeholder, _onChange, margin, name, value, disabled, size } = props;
+  const {
+    placeholder,
+    _onChange,
+    margin,
+    name,
+    value,
+    disabled,
+    size,
+    width,
+    height,
+  } = props;
   const styles = {
     margin: margin,
     size: size,
@@ -16,20 +26,22 @@ const Textarea = (props) => {
         value={value}
         disabled={disabled}
         {...styles}
+        width={width}
+        height={height}
       />
     </React.Fragment>
   );
 };
 Textarea.defaultProps = {
-  placeholder: '텍스트를 입력하세요',
+  placeholder: "텍스트를 입력하세요",
   _onChange: () => {},
   margin: false,
   disabled: false,
 };
 const ElTextarea = styled.textarea`
   width: 100%;
-  ${(props) => (props.size ? `font-size: ${props.size};` : '')};
-  ${(props) => (props.margin ? `margin: ${props.margin};` : '')};
+  ${(props) => (props.size ? `font-size: ${props.size};` : "")};
+  ${(props) => (props.margin ? `margin: ${props.margin};` : "")};
   padding: 8px;
   border: none;
   /* border: 1px solid #243443; */

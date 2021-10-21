@@ -2,21 +2,28 @@
 
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
-import { Grid, Input, Textarea, Text, Upload } from "../elements/index";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/image";
+import { Grid, Image, Upload } from "../elements/index";
 import apis from "axios";
 import { Cookies } from "react-cookie";
 import { history } from "../redux/configStore";
 
+// 스타일
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import CloseIcon from "@mui/icons-material/Close";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+
 const PostModal = () => {
-  const previewImage = useSelector((state) => state.image.preview);
   const dispatch = useDispatch();
 
-  const [preview, setPreview] = useState("http://via.placeholder.com/400x300");
   const [image, setImage] = useState("");
-  const [value, setValue] = useState("");
   const [contents, setContents] = useState("");
+  const [preview, setPreview] = useState("http://via.placeholder.com/400x300");
+
+  //리덕스에 저장한 값 다시 가져오기
+  const preview_image = useSelector((state) => state.image.preview);
 
   const addPost = (props) => {
     const cookies = new Cookies();
@@ -47,10 +54,12 @@ const PostModal = () => {
     const imageUrl = URL.createObjectURL(image_target);
     setImage(imageUrl);
 
+    //미리보기 리더
     const reader = new FileReader();
     reader.onload = (image_target) => {
       setPreview(reader.result);
     };
+
     reader.readAsDataURL(image_target);
 
     console.log(reader, "리더");
@@ -81,39 +90,62 @@ const PostModal = () => {
   return (
     <ModalContainer>
       <Container>
-        <ImageContainer>
-          <Grid>
+        <Grid is_flex>
+          <Grid
+            is_flex
+            justify="space-between"
+            height="50px"
+            border="#eee 1px solid"
+          >
+            <ArrowBackIcon />
             <div>작성</div>
-            <input
-              id="image"
-              ref={fileInput}
-              onChange={selectFile}
-              type="file"
-            />
+            <CloseIcon />
           </Grid>
-          <Grid>
-            <PreviewImage
-              shape="rectangle"
-              src={
-                previewImage
-                  ? previewImage
-                  : "http://via.placeholder.com/400x300"
-              }
-            />
+
+          <Grid is_flex>
+            <ImageContainer>
+              <Container>
+                <PreviewImage
+                  shape="rectangle"
+                  src={preview ? preview : "http://via.placeholder.com/400x300"}
+                />
+                <input
+                  id="image"
+                  ref={fileInput}
+                  onChange={selectFile}
+                  type="file"
+                />
+                <label for="image">
+                  <FileUploadIcon />
+                </label>
+              </Container>
+            </ImageContainer>
+
+            <TextContainer>
+              <Container margin="0 auto">
+                <Grid margin="-200px 0 0">
+                  <Grid
+                    is_flex
+                    justify="flex-start"
+                    padding="10px"
+                    height="20px"
+                  >
+                    <AccountCircleIcon />
+                    <div>13조화이링</div>
+                  </Grid>
+                  <Textarea
+                    value={contents}
+                    onChange={contentsChange}
+                    label="게시글내용"
+                    placeholder="설명을 입력하세요"
+                  />
+                </Grid>
+                <Button onClick={addPost}>업로드</Button>
+              </Container>
+            </TextContainer>
           </Grid>
-        </ImageContainer>
-        <TextContainer>
-          <Grid>
-            <textarea
-              value={contents}
-              onChange={contentsChange}
-              label="게시글내용"
-              placeholder="게시글을 작성해주세요"
-            />
-          </Grid>
-        </TextContainer>
+        </Grid>
       </Container>
-      <button onClick={addPost}>업로드</button>
     </ModalContainer>
   );
 };
@@ -122,37 +154,61 @@ const Container = styled.section`
   box-sizing: border-box;
   padding-top: 100px;
   margin: 0 auto;
-  width: 100%;
+  width: auto;
   position: relative;
 `;
 
 const ImageContainer = styled.div`
   box-sizing: border-box;
-  padding: 10px 0px;
+  padding: 50px 0px;
   background-size: contain;
-  width: 100%;
+  width: 65%;
   display: flex;
+  border: 1px solid #eee;
 `;
 
 const TextContainer = styled.div`
-  padding: 10px 0px;
   background-size: contain;
+  width: 35%;
+  height: 637px;
+  border: 1px solid #eee;
+  box-sizing: border-box;
+  margin: 0 auto;
+`;
+
+const Textarea = styled.textarea`
   width: 100%;
-  display: flex;
+  height: 300px;
+  padding: 10px;
+  box-sizing: border-box;
+  border: #eee 1px solid;
 `;
 
 const ModalContainer = styled.form`
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100%;
+  left: 10vw;
+  width: 80vw;
   height: 100%;
   background-color: rgba(0, 0, 0, 0);
 `;
 
-const PreviewImage = styled.image`
-  width: 200px;
-  height: 200px;
+const PreviewImage = styled.img`
+  width: 400px;
+  height: 300px;
+  padding: 50px;
+`;
+
+const Button = styled.button`
+  background: #0097f9;
+  width: 90%;
+  box-sizing: border-box;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  margin: 130px 5%;
+  font-size: 15px;
+  cursor: pointer;
 `;
 
 export default PostModal;

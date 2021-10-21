@@ -4,6 +4,7 @@ import styled from "styled-components";
 const Grid = (props) => {
   const {
     is_flex,
+    direction,
     is_header,
     type,
     flex,
@@ -22,6 +23,7 @@ const Grid = (props) => {
 
   const styles = {
     is_flex: is_flex,
+    direction :direction,
     is_header: is_header,
     flex: flex,
     justify: justify,
@@ -54,6 +56,7 @@ const Grid = (props) => {
 
 Grid.defaultProps = {
   is_flex: false,
+  direction: "row",
   is_header: false,
   flex: false,
   justify: "flex-start",
