@@ -19,8 +19,9 @@ const initialState = {
 const addPostAX = (content, image, token, history) => {
   return function (dispatch) {
     let formData = new FormData();
-    formData.append(image);
-    formData.append(content);
+    formData.append('username', token.username);
+    formData.append('image', image);
+    formData.append('content', content);
 
     const options = {
       url: 'http://withoh.shop/api/post',

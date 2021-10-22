@@ -31,15 +31,13 @@ const Post = (props) => {
       window.alert('댓글 내용을 입력해주세요');
       return;
     }
-    dispatch(
-      commentActions.addCommentAX(props.post_id, comment, username, token)
-    );
+    dispatch(commentActions.addCommentAX(props.post_id, comment, token));
   };
 
-  const user = useSelector((state) => state.user);
-  let username;
-  if (user.user) {
-    username = user.user.username;
+  const username = useSelector((state) => state.user);
+  let user_name;
+  if (username.user) {
+    user_name = username.user.username;
   }
 
   const deletePost = () => {
@@ -56,7 +54,7 @@ const Post = (props) => {
       {username == props.name ? (
         <DetailContainer>
           <UserInfo>
-            <Grid>
+            <Grid flex_row>
               {/* <Image
                 cursor='pointer'
                 _onClick={() => {
@@ -68,16 +66,18 @@ const Post = (props) => {
               ></Image> */}
               <Text bold>{props.name}</Text>
             </Grid>
-            <Grid>
-              <Text
-                cursor='pointer'
-                // _onClick={() => {
-                //   PostEdit;
-                // }}
-              >
+            <Grid
+              width='100px'
+              padding='0px 10px'
+              margin='auto'
+              flex_row
+              flex_detail='justify-content:space-between;'
+            >
+              <Text color='#0095f6' cursor='pointer' _onClick={openModal}>
                 수정
               </Text>
               <Text
+                color='#0095f6'
                 cursor='pointer'
                 _onClick={() => {
                   deletePost();
@@ -87,30 +87,62 @@ const Post = (props) => {
               </Text>
             </Grid>
           </UserInfo>
-          <Grid>
-            <Image src={props.image} shape='rectangle'></Image>
-          </Grid>
-          <Grid>
-            <ChatBubbleOutlineIcon cursor='pointer' fontSize='large' />
-            {/* <Text margin='0 0 0 4px'>{comment_count}</Text> */}
-          </Grid>
-          <Grid>
-            <Grid>
-              <Text>{props.name}</Text>
-              <Text>{props.createAt}</Text>
+          <Grid bg_color='white' height='auto'>
+            <Image src={props.image[0]} shape='rectangle'></Image>
+            <Grid
+              flex_row
+              flex_detail='align-items:center;'
+              padding='4px'
+              height='60px'
+            >
+              <Grid
+                flex_row
+                flex_detail='justify-content:center; align-items:center;'
+                width='auto'
+                height='auto'
+                margin='0px 8px'
+              ></Grid>
+              <Grid
+                flex_row
+                flex_detail='justify-content:center; align-items:center;'
+                width='auto'
+                height='auto'
+                margin='0px 8px'
+                _onClick={() => {
+                  history.push('/postdetail/' + props.post_id);
+                }}
+              >
+                <ChatBubbleOutlineIcon cursor='pointer' fontSize='large' />
+                {/* <Text margin='0px 0px 0px 4px'>{comment_count}</Text> */}
+              </Grid>
             </Grid>
-            <Grid>
-              <Text>{props.content}</Text>
+            <Grid
+              flex_row
+              flex_detail='align-items:center;'
+              padding='20px'
+              height='60px'
+            >
+              <Grid flex_column width='80px' height='50px' margin='auto'>
+                <Text NotP bold>
+                  {props.name}
+                </Text>
+                <Text NotP size='6px'>
+                  {props.createAt}
+                </Text>
+              </Grid>
+              <Grid height='auto'>
+                <Text>{props.content}</Text>
+              </Grid>
             </Grid>
           </Grid>
           <Line />
-          <Grid>
-            <Grid>
+          <Grid bg_color='white' flex_row height='50px'>
+            <Grid width='auto' height='auto' margin='auto 10px'>
               <InsertEmoticonIcon
                 cursor='pointer'
                 fontSize='large'
                 onClick={() => {
-                  window.alert('준비 안됨');
+                  window.alert('아직 준비중입니다.');
                 }}
               />
             </Grid>
@@ -121,8 +153,8 @@ const Post = (props) => {
               }}
               is_comment
             />
-            <Grid>
-              <Text _onClick={commentWrite} cursor='pointer'>
+            <Grid width='40px' margin='auto 10px'>
+              <Text color='#0095f6' _onClick={commentWrite} cursor='Pointer'>
                 게시
               </Text>
             </Grid>
@@ -144,30 +176,62 @@ const Post = (props) => {
               <Text bold>{props.name}</Text>
             </Grid>
           </UserInfo>
-          <Grid>
+          <Grid bg_color='white' height='auto'>
             <Image src={props.image} shape='rectangle'></Image>
-          </Grid>
-          <Grid>
-            <ChatBubbleOutlineIcon cursor='pointer' fontSize='large' />
-            {/* <Text margin='0 0 0 4px'>{comment_count}</Text> */}
-          </Grid>
-          <Grid>
-            <Grid>
-              <Text>{props.name}</Text>
-              <Text>{props.createAt}</Text>
+            <Grid
+              flex_row
+              flex_detail='align-items:center;'
+              padding='4px'
+              height='60px'
+            >
+              <Grid
+                flex_row
+                flex_detail='justify-content:center; align-items:center;'
+                width='auto'
+                height='auto'
+                margin='0px 8px'
+              ></Grid>
+              <Grid
+                flex_row
+                flex_detail='justify-content:center; align-items:center;'
+                width='auto'
+                height='auto'
+                margin='0px 8px'
+                _onClick={() => {
+                  history.push('/postdetail/' + props.post_id);
+                }}
+              >
+                <ChatBubbleOutlineIcon cursor='pointer' fontSize='large' />
+                {/* <Text margin='0px 0px 0px 4px'>{comment_count}</Text> */}
+              </Grid>
             </Grid>
-            <Grid>
-              <Text>{props.content}</Text>
+            <Grid
+              flex_row
+              flex_detail='align-items:center;'
+              padding='20px'
+              height='60px'
+            >
+              <Grid flex_column width='80px' height='50px' margin='auto'>
+                <Text NotP bold>
+                  {props.name}
+                </Text>
+                <Text NotP size='6px'>
+                  {props.createAt}
+                </Text>
+              </Grid>
+              <Grid height='auto'>
+                <Text>{props.content}</Text>
+              </Grid>
             </Grid>
           </Grid>
           <Line />
-          <Grid>
-            <Grid>
+          <Grid bg_color='white' flex_row height='50px'>
+            <Grid width='auto' height='auto' margin='auto 10px'>
               <InsertEmoticonIcon
                 cursor='pointer'
                 fontSize='large'
                 onClick={() => {
-                  window.alert('준비 안됨');
+                  window.alert('아직 준비중입니다.');
                 }}
               />
             </Grid>
@@ -178,8 +242,8 @@ const Post = (props) => {
               }}
               is_comment
             />
-            <Grid>
-              <Text _onClick={commentWrite} cursor='pointer'>
+            <Grid width='40px' margin='auto 10px'>
+              <Text color='#0095f6' _onClick={commentWrite} cursor='Pointer'>
                 게시
               </Text>
             </Grid>

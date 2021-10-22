@@ -46,7 +46,9 @@ const Header = () => {
                 cursor='pointer'
                 width='16px'
                 height='16px'
-                onClick={PostWrite}
+                onClick={() => {
+                  history.push('/postwrite');
+                }}
               />
               <ExitToAppIcon
                 cursor='pointer'

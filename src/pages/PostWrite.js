@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Input, Text } from '../elements/index';
+import { Grid, Input, Button, Text } from '../elements/index';
 import { actionCreators as postActions } from '../redux/modules/post';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
@@ -8,7 +8,7 @@ import { history } from '../redux/configStore';
 const PostWrite = (props) => {
   const dispatch = useDispatch();
 
-  const [preview, setPreview] = useState('http://via.placeholder.com/400x300');
+  const [preview, setPreview] = useState('');
   const [image, setImage] = useState(null);
   const [content, setContent] = useState('');
 
@@ -36,7 +36,7 @@ const PostWrite = (props) => {
   return (
     <React.Fragment>
       <Container>
-        <Grid flex_column border padding='' margin=''>
+        <Grid flex_column border padding='2%' margin='2% auto'>
           <ImageContainer>
             <Grid>
               <Text margin='0px' padding='10px' size='32px' bold>
@@ -48,7 +48,10 @@ const PostWrite = (props) => {
               <Text margin='0px' size='24px' bold>
                 미리보기{' '}
               </Text>
-              <img shape='rectangle' src={preview} />
+              <Imgpreview
+                shape='rectangle'
+                src={preview ? preview : 'http://via.placeholder.com/400x300'}
+              />
             </Grid>
           </ImageContainer>
           <TextContainer>
@@ -60,10 +63,16 @@ const PostWrite = (props) => {
                 placeholder='게시글 작성'
                 multiLine
               />
+              <Button
+                text='게시글 작성'
+                _onClick={() => {
+                  addPost();
+                  history.push('/');
+                }}
+              >
+                업로드
+              </Button>
             </Grid>
-            <button text='게시글 작성' _onClick={addPost}>
-              업로드
-            </button>
           </TextContainer>
         </Grid>
       </Container>
@@ -93,6 +102,12 @@ const TextContainer = styled.div`
   background-size: contain;
   width: 100%;
   display: flex;
+`;
+
+const Imgpreview = styled.img`
+  width: 400px;
+  height: 300px;
+  padding: 25px;
 `;
 
 export default PostWrite;
