@@ -36,6 +36,9 @@
 <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f9b302ef-f848-4e40-adfa-72a9a3ddfd60/1.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211022%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20211022T163738Z&X-Amz-Expires=86400&X-Amz-Signature=fece587751a89a70c98e51e5340dcd2d6c56f96f8a06d6c275916c62c5ed0319&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%221.jpg%22" width="40%"/>
 <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/4a66c9da-463a-4322-a68d-97c94e21e365/3.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211022%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20211022T163831Z&X-Amz-Expires=86400&X-Amz-Signature=685ce7b19ddc20a0a17c41f3d9aed719367f6a05b5a784ebaff312e61a95579e&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%223.jpg%22" width="40%"/>
 
+##### API설계
+<a href="https://www.notion.so/5281991e362c4e02a6098522d2429340?v=85c07b9086fc41ffac69692c8bafd01b">✨API설계 테이블로 바로가기</a>
+
 
 #### 둘째날
 - 로그인, 회원가입 기능구현(중복확인검사)
