@@ -44,10 +44,10 @@ const Post = (props) => {
     dispatch(commentActions.addCommentAX(props.post_id, comment, username));
   };
 
-  const user = useSelector((state) => state.user);
-  let username;
-  if (user.user) {
-    username = user.user.username;
+  const username = useSelector((state) => state.user);
+  let user_name;
+  if (username.user) {
+    user_name = username.user.username;
   }
 
   const deletePost = () => {
@@ -119,20 +119,25 @@ const Post = (props) => {
                 window.alert("준비 안됨");
               }}
             />
+            <Input
+              value={comment}
+              _onChange={(e) => {
+                setComment(e.target.value);
+              }}
+              is_comment
+            />
+            <Grid width="40px" margin="auto 10px">
+              <Text color="#0095f6" _onClick={commentWrite} cursor="Pointer">
+                게시
+              </Text>
+            </Grid>
           </Grid>
-          <Grid>{}</Grid>
-          <Input
-            value={comment}
-            _onChange={(e) => {
-              setComment(e.target.value);
-            }}
-            is_comment
-          />
-          <Grid>
-            <Text _onClick={commentWrite} cursor="pointer">
+
+          {/* <Grid>
+            <Text _onClick={commentWrite} cursor='pointer'>
               게시
             </Text>
-          </Grid>
+          </Grid> */}
         </Grid>
       </DetailContainer>
     </React.Fragment>

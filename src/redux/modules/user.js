@@ -12,8 +12,7 @@ const LOGOUT = "LOGOUT";
 
 const initialState = {
   user: {
-    userName: null,
-    profile_image: null,
+    username: null,
   },
   is_login: false,
   is_loading: false,
