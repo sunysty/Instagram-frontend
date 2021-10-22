@@ -1,15 +1,16 @@
-import axios from 'axios';
-import { Cookies } from 'react-cookie';
+import axios from "axios";
+import { Cookies } from "react-cookie";
 
 const cookies = new Cookies();
 
 const instance = axios.create({
   // 기본적으로 우리가 바라볼 서버의 주소
-  baseURL: 'http://withoh.shop/',
+  // baseURL: 'http://withoh.shop/',
+  baseURL: "http://54.180.83.198:8080/",
   headers: {
-    'content-type': 'application/json;charset=UTF-8',
-    accept: 'application/json',
-    Authorization: `Bearer ${cookies.get('token')}`,
+    "content-type": "application/json;charset=UTF-8",
+    accept: "application/json",
+    Authorization: `Bearer ${cookies.get("token")}`,
   },
 });
 
@@ -20,16 +21,16 @@ export const apis = {
   // get과 delete의 경우 두 번째 인자에 데이터를 담아 보낼수 없기 때문에 서버에 데이터를 보낼경우 쿼리를 이용하여 보내주도록 합니다.
 
   //로그인
-  logInAX: (user) => instance.post('/api/user/login', user),
+  logInAX: (user) => instance.post("/api/user/login", user),
   // logInAX: (user) => instance.post("/signup", user),
 
   //회원가입
-  getAccountAX: (user) => instance.post('/api/user/signup', user),
+  getAccountAX: (user) => instance.post("/api/user/signup", user),
   // getAccountAX: (user) => instance.post("/signup", user),
 
   // 회원가입 아이디 중복 체크
-  getIdCheckAX: (username) => instance.post('/api/user/redunancy', username),
+  getIdCheckAX: (username) => instance.post("/api/user/redunancy", username),
 
   //로그아웃
-  logOutAX: () => instance.get('/api/user/logout'),
+  logOutAX: () => instance.get("/api/user/logout"),
 };
