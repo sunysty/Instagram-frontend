@@ -18,8 +18,9 @@ const PostWrite = (props) => {
 
   const selectImage = (e) => {
     const image_target = e.target.files[0];
-    const imageUrl = URL.createObjectURL(image_target);
-    setImage(imageUrl);
+    // const imageUrl = URL.createObjectURL(image_target);
+    setImage(image_target);
+    console.log(image_target);
 
     //미리보기
     const reader = new FileReader();
@@ -28,7 +29,6 @@ const PostWrite = (props) => {
     };
     reader.readAsDataURL(image_target);
   };
-
   const contentChange = (e) => {
     setContent(e.target.value);
   };
