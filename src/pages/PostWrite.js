@@ -14,6 +14,7 @@ const PostWrite = (props) => {
 
   const addPost = () => {
     dispatch(postActions.addPostAX(content, image, history));
+    history.push("/");
   };
 
   const selectImage = (e) => {

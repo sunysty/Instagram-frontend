@@ -45,7 +45,6 @@ const addPostAX = (content, image, username, history) => {
     axios(options)
       .then((response) => {
         window.alert("게시물 작성 완료");
-        history.push("/");
       })
       .catch((error) => {
         console.log(error);
@@ -66,13 +65,12 @@ const setPostAX = (history) => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json;charset=UTF-8",
-        "X-AUTH-TOKEN": token,
+        "X-AUTH-TOKEN": token.token,
       },
     };
     axios(options)
       .then((response) => {
         let post_list = [];
-        console.log(response);
         for (let i = 0; i < response.data.data.length; i++) {
           post_list.push({
             username: token.username,
@@ -83,7 +81,6 @@ const setPostAX = (history) => {
           });
         }
         dispatch(setPost(post_list));
-        console.log(post_list);
       })
       .catch((error) => {
         console.log(error);
@@ -94,20 +91,20 @@ const setPostAX = (history) => {
   };
 };
 
-const deletePostAX = (post_id, token) => {
+const deletePostAX = (post_id) => {
   return function (dispatch) {
     const cookies = new Cookies();
     const token = cookies.get("token");
     const options = {
-      url: "http://withoh.shop/api/post",
+      url: "http://54.180.83.198:8080/api/post",
       method: "DELETE",
       headers: {
         Accept: "application.json",
         "Content-Type": "application/json;charset=UTF-8",
-        "X-AUTH-TOKEN": token,
+        "X-AUTH-TOKEN": token.token,
       },
       data: {
-        post_Id: post_id,
+        postId: post_id,
       },
     };
     axios(options)
@@ -128,12 +125,12 @@ const editPostAX = (content, post_id, token) => {
     const cookies = new Cookies();
     const token = cookies.get("token");
     const options = {
-      url: "http://withoh.shop/api/post",
+      url: "http://54.180.83.198:8080/api/post",
       method: "DELETE",
       headers: {
         Accept: "application.json",
         "Content-Type": "application/json;charset=UTF-8",
-        "X-AUTH-TOKEN": token,
+        "X-AUTH-TOKEN": token.token,
       },
       data: {
         post_Id: post_id,
