@@ -12,10 +12,11 @@ const Main = () => {
   const list = useSelector((state) => state.user.user);
   const post_data = useSelector((state) => state.post.list);
 
+// 게시글이 없으면 과거 포스트를 가져옴
   React.useEffect(() => {
-    if (post_data.length < 2) {
+  //   if (post_data.length < 2) {
       dispatch(postActions.setPostAX(history));
-    }
+  //   }
   }, []);
   console.log(post_data);
 
