@@ -96,15 +96,12 @@ const deletePostAX = (post_id) => {
     const cookies = new Cookies();
     const token = cookies.get("token");
     const options = {
-      url: "http://54.180.83.198:8080/api/post",
+      url: `http://54.180.83.198:8080/api/post?postid=${post_id}`,
       method: "DELETE",
       headers: {
-        Accept: "application.json",
+        Accept: "application/json",
         "Content-Type": "application/json;charset=UTF-8",
         "X-AUTH-TOKEN": token.token,
-      },
-      data: {
-        postId: post_id,
       },
     };
     axios(options)
