@@ -1,19 +1,19 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
-import { actionCreators as userAction } from '../redux/modules/user';
-import { Cookies } from 'react-cookie';
+import React from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
+import { actionCreators as userAction } from "../redux/modules/user";
+import { Cookies } from "react-cookie";
 
-import styled from 'styled-components';
-import Button from '@mui/material/Button';
-import { TextField } from '@mui/material';
+import styled from "styled-components";
+import Button from "@mui/material/Button";
+import { TextField } from "@mui/material";
 
 const LogIn = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [username, setUsername] = React.useState('');
-  const [pwd, setPwd] = React.useState('');
+  const [username, setUsername] = React.useState("");
+  const [pwd, setPwd] = React.useState("");
 
   //입력한 Id값 값 가져오기
   const onChangeID = (e) => {
@@ -29,7 +29,7 @@ const LogIn = () => {
   };
   //Enter키로 Button 이벤트 발생
   const loginKeyPress = (e) => {
-    if (e.key == 'Enter') {
+    if (e.key == "Enter") {
       login();
     }
   };
@@ -38,42 +38,43 @@ const LogIn = () => {
     <React.Fragment>
       <Wrap>
         <Image
-          src='https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbM7Bmz%2Fbtrit3Z3Etb%2F0fKq6PcB2gTq0E2acmj0Vk%2Fimg.jpg'
-          alt='파일명'
+          // src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbM7Bmz%2Fbtrit3Z3Etb%2F0fKq6PcB2gTq0E2acmj0Vk%2Fimg.jpg"
+          src="img/instarPicture.png"
+          alt="파일명"
         />
         <BoxGrid>
           <Container>
             <div>
               <Logo
-                src='https://fontmeme.com/images/instagram-new-logo.png'
-                alt='파일명'
+                src="https://fontmeme.com/images/instagram-new-logo.png"
+                alt="파일명"
               />
             </div>
             <InputBox>
               <TextField
-                id='outlined-basic'
-                label='아이디'
-                variant='outlined'
+                id="outlined-basic"
+                label="아이디"
+                variant="outlined"
                 onChange={onChangeID}
-                size='small'
-                margin='dense'
-                sx={{ width: '100%' }}
+                size="small"
+                margin="dense"
+                sx={{ width: "100%" }}
               />
 
               <TextField
-                id='outlined-basic'
-                type='password'
-                label='비밀번호'
-                variant='outlined'
+                id="outlined-basic"
+                type="password"
+                label="비밀번호"
+                variant="outlined"
                 onChange={onChangePwd}
-                size='small'
-                margin='dense'
-                sx={{ width: '100%' }}
+                size="small"
+                margin="dense"
+                sx={{ width: "100%" }}
                 onKeyPress={loginKeyPress}
               />
 
               <div>
-                {username === '' || pwd === '' ? (
+                {username === "" || pwd === "" ? (
                   <BlockedButton onClick={login} disabled>
                     로그인하기
                   </BlockedButton>
@@ -87,9 +88,9 @@ const LogIn = () => {
             계정이 있으신가요?
             <Button
               onClick={() => {
-                history.push('/signup');
+                history.push("/signup");
               }}
-              sx={{ margin: '-7px' }}
+              sx={{ margin: "-7px" }}
             >
               가입하기
             </Button>
@@ -127,7 +128,7 @@ const Logo = styled.img`
   margin: 0px auto 12px;
   display: block;
 `;
-const Image = styled.div`
+const Image = styled.img`
   width: 400px;
   height: 610px;
 `;
