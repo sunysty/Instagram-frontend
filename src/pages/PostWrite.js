@@ -8,7 +8,7 @@ import { history } from '../redux/configStore';
 const PostWrite = (props) => {
   const dispatch = useDispatch();
 
-  const [preview, setPreview] = useState('');
+  const [preview, setPreview] = useState('http://via.placeholder.com/400x300');
   const [image, setImage] = useState(null);
   const [content, setContent] = useState('');
 
@@ -18,8 +18,9 @@ const PostWrite = (props) => {
 
   const selectImage = (e) => {
     const image_target = e.target.files[0];
-    const imageUrl = URL.createObjectURL(image_target);
-    setImage(imageUrl);
+    // const imageUrl = URL.createObjectURL(image_target);
+    setImage(image_target);
+    console.log(image_target);
 
     //미리보기
     const reader = new FileReader();
@@ -28,7 +29,6 @@ const PostWrite = (props) => {
     };
     reader.readAsDataURL(image_target);
   };
-
   const contentChange = (e) => {
     setContent(e.target.value);
   };
@@ -42,7 +42,7 @@ const PostWrite = (props) => {
               <Text margin='0px' padding='10px' size='32px' bold>
                 게시글 작성하기
               </Text>
-              <Input type='file' onChange={selectImage} />
+              <Input type='file' _onChange={selectImage} />
             </Grid>
             <Grid padding='3px'>
               <Text margin='0px' size='24px' bold>

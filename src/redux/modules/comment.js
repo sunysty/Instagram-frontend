@@ -1,14 +1,14 @@
-import { createAction, handleActions } from 'redux-actions';
-import { produce } from 'immer';
-import 'moment';
-import { Cookies } from 'react-cookie';
-import moment from 'moment';
-import axios from 'axios';
-import { actionCreators as postActions } from './post';
+import { createAction, handleActions } from "redux-actions";
+import { produce } from "immer";
+import "moment";
+import { Cookies } from "react-cookie";
+import moment from "moment";
+import axios from "axios";
+import { actionCreators as postActions } from "./post";
 
-const SET_COMMENT = 'SET_COMMENT';
-const ADD_COMMENT = 'ADD_COMMENT';
-const DELETE_COMMENT = 'DELETE_COMMENT';
+const SET_COMMENT = "SET_COMMENT";
+const ADD_COMMENT = "ADD_COMMENT";
+const DELETE_COMMENT = "DELETE_COMMENT";
 
 const setComment = createAction(SET_COMMENT, (comment_list) => ({
   comment_list,
@@ -25,11 +25,11 @@ const initialState = {
 const setCommentAX = (post_id) => {
   return function (dispatch) {
     const options = {
-      url: 'http://withoh.shop/api/comment',
-      method: 'POST',
+      url: "http://withoh.shop/api/comment",
+      method: "POST",
       headers: {
-        Accept: 'application.json',
-        'Content-Type': 'application/json;charset=UTF-8',
+        Accept: "application.json",
+        "Content-Type": "application/json;charset=UTF-8",
       },
       data: {
         post_Id: post_id,
@@ -41,10 +41,10 @@ const setCommentAX = (post_id) => {
         let comment_list = [];
         for (let i = 0; i < response.data.comments.length; i++) {
           comment_list.push({
-            user_name: response.data.comments[i].name,
-            content: response.data.comments[i].text,
-            createAt: response.data.comments[i].createAt,
-            comment_id: response.data.comments[i].comment_id,
+            user_name: response.data.comments[i].username,
+            content: response.data.comments[i].comment,
+            createAt: response.data.comments[i].date,
+            comment_id: response.data.comments[i].commentid,
             // 추가 ㄱㄴ
           });
         }
@@ -54,7 +54,7 @@ const setCommentAX = (post_id) => {
       .catch((error) => {
         console.log(error);
         if (error.response) {
-          window.alert('getCommentAX 에러');
+          window.alert("getCommentAX 에러");
         }
       });
   };
@@ -64,14 +64,14 @@ const addCommentAX = (username, post_id, comment, token) => {
   return function (dispatch) {
     console.log(username, comment, post_id);
     const cookies = new Cookies();
-    const token = cookies.get('token');
+    const token = cookies.get("token");
     const options = {
-      url: 'http://withoh.shop/api/comment',
-      method: 'POST',
+      url: "http://withoh.shop/api/comment",
+      method: "POST",
       headers: {
-        Accept: 'application.json',
-        'Content-Type': 'application/json;charset=UTF-8',
-        'X-AUTH-TOKEN': token,
+        Accept: "application.json",
+        "Content-Type": "application/json;charset=UTF-8",
+        "X-AUTH-TOKEN": token,
       },
       data: {
         comment: comment,
@@ -95,7 +95,7 @@ const addCommentAX = (username, post_id, comment, token) => {
       .catch((error) => {
         console.log(error);
         if (error.response) {
-          window.alert('addCommentAX 에러');
+          window.alert("addCommentAX 에러");
         }
       });
   };
@@ -104,12 +104,12 @@ const addCommentAX = (username, post_id, comment, token) => {
 const deleteCommentAX = (post_id, comment_id, token) => {
   return function (dispatch) {
     const options = {
-      url: 'http://withoh.shop/api/comment',
-      method: 'DELETE',
+      url: "http://withoh.shop/api/comment",
+      method: "DELETE",
       headers: {
-        Accept: 'application.json',
-        'Content-Type': 'application/json;charset=UTF-8',
-        'X-AUTH-TOKEN': token,
+        Accept: "application.json",
+        "Content-Type": "application/json;charset=UTF-8",
+        "X-AUTH-TOKEN": token,
       },
       data: {
         post_Id: post_id,
@@ -125,7 +125,7 @@ const deleteCommentAX = (post_id, comment_id, token) => {
       .catch((error) => {
         console.log(error);
         if (error.response) {
-          window.alert('deleteCommentAX 에러');
+          window.alert("deleteCommentAX 에러");
         }
       });
   };

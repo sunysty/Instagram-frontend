@@ -9,9 +9,10 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 
 const Post = (props) => {
+  const post_list = useSelector((state) => state.post.list);
   const [modalVisible, setModalVisible] = React.useState(false);
   // let comment_count = props.comment.length;
-
+  console.log('포스트 불러오기', post_list);
   const openModal = () => {
     setModalVisible(true);
   };
@@ -51,11 +52,10 @@ const Post = (props) => {
   return (
     <React.Fragment>
       {/* 내 게시물인 경우에만 수정, 삭제 */}
-      {username == props.name ? (
-        <DetailContainer>
-          <UserInfo>
-            <Grid flex_row>
-              {/* <Image
+      <DetailContainer>
+        <UserInfo>
+          <Grid>
+            {/* <Image
                 cursor='pointer'
                 _onClick={() => {
                   history.push('/profile');
@@ -64,88 +64,53 @@ const Post = (props) => {
                 shape='circle'
                 size='36'
               ></Image> */}
-              <Text bold>{props.name}</Text>
-            </Grid>
-            <Grid
-              width='100px'
-              padding='0px 10px'
-              margin='auto'
-              flex_row
-              flex_detail='justify-content:space-between;'
-            >
-              <Text color='#0095f6' cursor='pointer' _onClick={openModal}>
-                수정
-              </Text>
-              <Text
-                color='#0095f6'
-                cursor='pointer'
-                _onClick={() => {
-                  deletePost();
-                }}
-              >
-                삭제
-              </Text>
-            </Grid>
-          </UserInfo>
-          <Grid bg_color='white' height='auto'>
-            <Image src={props.image[0]} shape='rectangle'></Image>
-            <Grid
-              flex_row
-              flex_detail='align-items:center;'
-              padding='4px'
-              height='60px'
-            >
-              <Grid
-                flex_row
-                flex_detail='justify-content:center; align-items:center;'
-                width='auto'
-                height='auto'
-                margin='0px 8px'
-              ></Grid>
-              <Grid
-                flex_row
-                flex_detail='justify-content:center; align-items:center;'
-                width='auto'
-                height='auto'
-                margin='0px 8px'
-                _onClick={() => {
-                  history.push('/postdetail/' + props.post_id);
-                }}
-              >
-                <ChatBubbleOutlineIcon cursor='pointer' fontSize='large' />
-                {/* <Text margin='0px 0px 0px 4px'>{comment_count}</Text> */}
-              </Grid>
-            </Grid>
-            <Grid
-              flex_row
-              flex_detail='align-items:center;'
-              padding='20px'
-              height='60px'
-            >
-              <Grid flex_column width='80px' height='50px' margin='auto'>
-                <Text NotP bold>
-                  {props.name}
-                </Text>
-                <Text NotP size='6px'>
-                  {props.createAt}
-                </Text>
-              </Grid>
-              <Grid height='auto'>
-                <Text>{props.content}</Text>
-              </Grid>
-            </Grid>
+            <Text bold>{post_list.username}</Text>
           </Grid>
-          <Line />
-          <Grid bg_color='white' flex_row height='50px'>
-            <Grid width='auto' height='auto' margin='auto 10px'>
-              <InsertEmoticonIcon
-                cursor='pointer'
-                fontSize='large'
-                onClick={() => {
-                  window.alert('아직 준비중입니다.');
-                }}
-              />
-            </Grid>
+          <Grid>
+            <Text
+              cursor='pointer'
+              // _onClick={() => {
+              //   PostEdit;
+              // }}
+            >
+              수정
+            </Text>
+            <Text
+              cursor='pointer'
+              _onClick={() => {
+                deletePost();
+              }}
+            >
+              삭제
+            </Text>
+          </Grid>
+        </UserInfo>
+        <Grid>
+          <Image src={props.image} shape='rectangle'></Image>
+        </Grid>
+        <Grid>
+          <ChatBubbleOutlineIcon cursor='pointer' fontSize='large' />
+          {/* <Text margin='0 0 0 4px'>{comment_count}</Text> */}
+        </Grid>
+        <Grid>
+          <Grid>
+            <Text>{props.name}</Text>
+            <Text>{props.createAt}</Text>
+          </Grid>
+          <Grid>
+            <Text>{props.content}</Text>
+          </Grid>
+        </Grid>
+        <Line />
+        <Grid>
+          <Grid>
+            <InsertEmoticonIcon
+              cursor='pointer'
+              fontSize='large'
+              onClick={() => {
+                window.alert('준비 안됨');
+              }}
+            />
             <Input
               value={comment}
               _onChange={(e) => {
@@ -159,97 +124,14 @@ const Post = (props) => {
               </Text>
             </Grid>
           </Grid>
-        </DetailContainer>
-      ) : (
-        <DetailContainer>
-          <UserInfo>
-            <Grid>
-              {/* <Image
-                cursor='pointer'
-                _onClick={() => {
-                  history.push('/profile');
-                }}
-                src={props.profile_image}
-                shape='circle'
-                size='36'
-              ></Image> */}
-              <Text bold>{props.name}</Text>
-            </Grid>
-          </UserInfo>
-          <Grid bg_color='white' height='auto'>
-            <Image src={props.image} shape='rectangle'></Image>
-            <Grid
-              flex_row
-              flex_detail='align-items:center;'
-              padding='4px'
-              height='60px'
-            >
-              <Grid
-                flex_row
-                flex_detail='justify-content:center; align-items:center;'
-                width='auto'
-                height='auto'
-                margin='0px 8px'
-              ></Grid>
-              <Grid
-                flex_row
-                flex_detail='justify-content:center; align-items:center;'
-                width='auto'
-                height='auto'
-                margin='0px 8px'
-                _onClick={() => {
-                  history.push('/postdetail/' + props.post_id);
-                }}
-              >
-                <ChatBubbleOutlineIcon cursor='pointer' fontSize='large' />
-                {/* <Text margin='0px 0px 0px 4px'>{comment_count}</Text> */}
-              </Grid>
-            </Grid>
-            <Grid
-              flex_row
-              flex_detail='align-items:center;'
-              padding='20px'
-              height='60px'
-            >
-              <Grid flex_column width='80px' height='50px' margin='auto'>
-                <Text NotP bold>
-                  {props.name}
-                </Text>
-                <Text NotP size='6px'>
-                  {props.createAt}
-                </Text>
-              </Grid>
-              <Grid height='auto'>
-                <Text>{props.content}</Text>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Line />
-          <Grid bg_color='white' flex_row height='50px'>
-            <Grid width='auto' height='auto' margin='auto 10px'>
-              <InsertEmoticonIcon
-                cursor='pointer'
-                fontSize='large'
-                onClick={() => {
-                  window.alert('아직 준비중입니다.');
-                }}
-              />
-            </Grid>
-            <Input
-              value={comment}
-              _onChange={(e) => {
-                setComment(e.target.value);
-              }}
-              is_comment
-            />
-            <Grid width='40px' margin='auto 10px'>
-              <Text color='#0095f6' _onClick={commentWrite} cursor='Pointer'>
-                게시
-              </Text>
-            </Grid>
-          </Grid>
-        </DetailContainer>
-      )}
+
+          {/* <Grid>
+            <Text _onClick={commentWrite} cursor='pointer'>
+              게시
+            </Text>
+          </Grid> */}
+        </Grid>
+      </DetailContainer>
     </React.Fragment>
   );
 };

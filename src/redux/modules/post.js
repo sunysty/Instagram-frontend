@@ -1,6 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import axios from 'axios';
+import { Cookies } from 'react-cookie';
 
 const SET_POST = 'SET_POST';
 const ADD_POST = 'ADD_POST';
@@ -16,33 +17,33 @@ const initialState = {
   list: [],
 };
 
-const addPostAX = (content, image, token, history) => {
+const addPostAX = (content, image, username, history) => {
   return function (dispatch) {
+    const cookies = new Cookies();
+    const token = cookies.get('token');
     let formData = new FormData();
     formData.append('username', token.username);
     formData.append('image', image);
     formData.append('content', content);
 
     const options = {
-      url: 'http://withoh.shop/api/post',
+      url: 'http://54.180.83.198:8080/api/post',
       method: 'POST',
       headers: {
-        Accept: 'application.json',
+        Accept: 'application/json',
         'Content-Type': 'application/json;charset=UTF-8',
-        'X-AUTH-TOKEN': token,
+        'X-AUTH-TOKEN': token.token,
       },
       data: formData,
     };
+    let post_list = {
+      username: token.username,
+      content: content,
+      image: image,
+    };
+    dispatch(addPost(post_list));
     axios(options)
       .then((response) => {
-        let post_list = {
-          post_id: response.data.post_list.post_Id,
-          content: response.data.post_list.content,
-          image: response.data.post_list.image,
-          createAt: response.data.post_list.createAt,
-          comments: response.data.post_list.comment,
-        };
-        dispatch(addPost(post_list));
         window.alert('게시물 작성 완료');
         history.push('/');
       })
@@ -55,29 +56,34 @@ const addPostAX = (content, image, token, history) => {
   };
 };
 
-const setPostAX = (token, history) => {
+const setPostAX = (history) => {
   return function (dispatch, getState) {
+    const cookies = new Cookies();
+    const token = cookies.get('token');
     const options = {
-      url: 'http://withoh.shop/api/main',
+      url: 'http://54.180.83.198:8080/api/main',
       method: 'GET',
       headers: {
-        Accept: 'application.json',
+        Accept: 'application/json',
         'Content-Type': 'application/json;charset=UTF-8',
-        // 'X-AUTH-TOKEN': token,
+        'X-AUTH-TOKEN': token,
       },
     };
     axios(options)
       .then((response) => {
         let post_list = [];
-        for (let i = 0; i < response.data.post_list.length; i++) {
+        console.log(response);
+        for (let i = 0; i < response.data.data.length; i++) {
           post_list.push({
-            post_id: response.data.post_list[0].post_Id,
-            content: response.data.post_list[0].content,
-            image: response.data.post_list[0].image,
-            comments: response.data.post_list[0].comment,
+            username: token.username,
+            post_id: response.data.data[i].postId,
+            content: response.data.data[i].content,
+            image: response.data.data[i].image,
+            comments: response.data.data[i].comment,
           });
         }
         dispatch(setPost(post_list));
+        console.log(post_list);
       })
       .catch((error) => {
         console.log(error);
@@ -90,6 +96,8 @@ const setPostAX = (token, history) => {
 
 const deletePostAX = (post_id, token) => {
   return function (dispatch) {
+    const cookies = new Cookies();
+    const token = cookies.get('token');
     const options = {
       url: 'http://withoh.shop/api/post',
       method: 'DELETE',
@@ -117,6 +125,8 @@ const deletePostAX = (post_id, token) => {
 
 const editPostAX = (content, post_id, token) => {
   return function (dispatch) {
+    const cookies = new Cookies();
+    const token = cookies.get('token');
     const options = {
       url: 'http://withoh.shop/api/post',
       method: 'DELETE',
