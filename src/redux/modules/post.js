@@ -17,6 +17,9 @@ const initialState = {
   list: [],
 };
 
+//게시글
+
+//추가
 const addPostAX = (content, image, username, history) => {
   return function (dispatch) {
     const cookies = new Cookies();
@@ -36,11 +39,13 @@ const addPostAX = (content, image, username, history) => {
       },
       data: formData,
     };
+
     let post_list = {
       username: token.username,
       content: content,
       image: image,
     };
+
     dispatch(addPost(post_list));
     axios(options)
       .then((response) => {
@@ -55,6 +60,7 @@ const addPostAX = (content, image, username, history) => {
   };
 };
 
+//조회
 const setPostAX = (history) => {
   return function (dispatch, getState) {
     const cookies = new Cookies();
@@ -72,6 +78,7 @@ const setPostAX = (history) => {
       .then((response) => {
         let post_list = [];
         for (let i = 0; i < response.data.data.length; i++) {
+          console.log(response.data.data[i]);
           post_list.push({
             username: token.username,
             post_id: response.data.data[i].postId,
@@ -80,6 +87,7 @@ const setPostAX = (history) => {
             comments: response.data.data[i].comment,
           });
         }
+
         dispatch(setPost(post_list));
       })
       .catch((error) => {
@@ -104,6 +112,7 @@ const deletePostAX = (post_id) => {
         "X-AUTH-TOKEN": token.token,
       },
     };
+    
     axios(options)
       .then((response) => {
         dispatch(deletePost(post_id));

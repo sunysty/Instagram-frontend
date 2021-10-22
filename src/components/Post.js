@@ -50,6 +50,7 @@ const Post = (props) => {
     user_name = username.user.username;
   }
 
+  //게시물삭제
   const deletePost = () => {
     if (window.confirm("삭제하시겠습니까?")) {
       dispatch(postActions.deletePostAX(props.post_id));
