@@ -1,19 +1,23 @@
 ## Instagram Clone
 
+<br/>
+
 ### 📋 프로젝트 내용
 ---
 `소셜미디어 인스타그램을 클론한 사이트 입니다.`
 
 <a href="https://youtu.be/3Ln_p9Wq9Cg">▶️영상보러가기<a/>
 
-</br>
+</br><br/>
 
 ### 👨‍🦲 기간 및 팀구성
 ---
 ` 2021.10.17 ~ 2021.10.22 (5일) `<br/>
+` 13조 (6명) `<br/>
 ` Front-end | 김갑민, 석지선, 안정우 `<br/>
 ` Back-end | 심우진, 양희준, 오성현 `
-</br>
+
+</br><br/>
 
 ### 🛠 FE팀 역할분담 
 ---
@@ -22,12 +26,16 @@
 ` 석지선 | 이미지 업로드 `<br/>
 ` 다같이 | 백앤드와 통신(axios) `
 
+<br/><br/>
+
 ### ⚙️사용기술
 ---
 <img src='https://img.shields.io/badge/React-v17.0.2-61DAFB?logo=React'/> <img src='https://img.shields.io/badge/Redux-v7.2.5-764ABC?logo=Redux'/>
 <img src='https://img.shields.io/badge/React Router-v5.3.0-CA4245?logo=React Router'/>
 <img src='https://img.shields.io/badge/styled components-v5.3.0-DB7093?logo=styled components'/>
 <img src='https://img.shields.io/badge/Immer-v5.3.0-00E7C3?logo=Immer'/>
+
+<br/><br/>
 
 ### 📅진행사항
 ---
@@ -64,6 +72,7 @@
 - CRUD 마무리
 - 뷰 CSS 마무리 작업
 
+<br/><br/>
 
 ### 🚀 프로젝트를 진행하면서 해결한 문제
 ---
@@ -75,3 +84,10 @@
 
 - for문 사용 : 
 Post를 게시 할 때마다 num값을 줘서 각각 Post마다 고유번호를 하나씩 붙여서 num값으로 게시글을 비교적 쉽게 찾을 수 있게 사용해보았다. 
+
+<br/><br/>
+### 느낀점
+---
+- 백앤드와의 협업시 초기에 API설계를 잘 해야한다. 변수명이나 데이터형식을 곰곰히 생각해보고, 시간이 걸리더라도 서로 완전히 숙지된 상태에서 프로젝트를 시작하기!
+- 프론트앤드끼리도 최소단위컴포넌트나 라이브러리를 처음에 잘 정해놓고 충분한 대화후에 프로젝트를 들어가기!
+- 소통이 매우 중요하다.
