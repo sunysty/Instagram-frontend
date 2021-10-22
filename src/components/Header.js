@@ -26,6 +26,13 @@ const Header = () => {
           </BannerContainer>
           <div>
             <IconContainer is_flex justify="space-between" width="100px">
+              <RiHome2Fill
+                cursor="pointer"
+                onClick={() => {
+                  history.push("/");
+                }}
+              />
+
               <ControlPointIcon
                 cursor="pointer"
                 width="16px"

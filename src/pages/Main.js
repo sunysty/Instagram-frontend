@@ -12,11 +12,11 @@ const Main = () => {
   const list = useSelector((state) => state.user.user);
   const post_data = useSelector((state) => state.post.list);
 
-// 게시글이 없으면 과거 포스트를 가져옴
+  // 게시글이 없으면 과거 포스트를 가져옴
   React.useEffect(() => {
-  //   if (post_data.length < 2) {
-      dispatch(postActions.setPostAX(history));
-  //   }
+    //   if (post_data.length < 2) {
+    dispatch(postActions.setPostAX(history));
+    //   }
   }, []);
   console.log(post_data);
 
@@ -25,7 +25,7 @@ const Main = () => {
       <Container>
         <PostContainer>
           <Header />
-          <Post />
+          {/* <Post /> */}
           {/* 여러 게시글이 보이게 처리
           맵을 돌리면서 Post부터 그이하로 props로 데이터 전달 */}
           {post_data.map((p, idx) => {

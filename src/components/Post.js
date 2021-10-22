@@ -7,6 +7,7 @@ import { actionCreators as postActions } from "../redux/modules/post";
 import { history } from "../redux/configStore";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 const Post = (props) => {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const Post = (props) => {
       return;
     }
     dispatch(commentActions.addCommentAX(props.post_id, comment, username));
+    window.location.reload();
   };
 
   const username = useSelector((state) => state.user);
@@ -54,6 +56,7 @@ const Post = (props) => {
   const deletePost = () => {
     if (window.confirm("삭제하시겠습니까?")) {
       dispatch(postActions.deletePostAX(props.post_id));
+      window.location.reload();
     } else {
       return;
     }
@@ -79,28 +82,29 @@ const Post = (props) => {
                 {props.username}
               </Text>
             </Grid>
-            {/* <MoreHorizIcon cursor='pointer' /> */}
+            {/* <MoreHorizIcon cursor="pointer" /> */}
             {/* <Text
                 cursor='pointer'
-                // _onClick={() => {
-                //   PostEdit;
-                // }}
-              >
-                수정
-              </Text>
-              <Text
-                cursor='pointer'
                 _onClick={() => {
-                  deletePost();
+                  PostEdit;
                 }}
               >
-                삭제
+                수정
               </Text> */}
+            <Text
+              cursor="pointer"
+              _onClick={() => {
+                deletePost();
+              }}
+              width="30px"
+            >
+              삭제
+            </Text>
           </UserInfo>
           <Grid>
             <Image src={props.image} shape="rectangle"></Image>
           </Grid>
-          <Grid>
+          <Grid padding="20px 20px 0px 20px">
             <ChatBubbleOutlineIcon
               cursor="pointer"
               fontSize="large"
@@ -112,7 +116,7 @@ const Post = (props) => {
             <Grid>
               <Text>{props.createAt}</Text>
             </Grid>
-            <Grid>
+            <Grid padding="0px 20px">
               <Text>{props.content}</Text>
             </Grid>
           </Grid>
@@ -131,14 +135,7 @@ const Post = (props) => {
                   />
                 </Grid>
                 <Grid width="20%">
-                  <Text
-                    color="#0095F6"
-                    _onClick={commentWrite}
-                    cursor="Pointer"
-                    text-align="center"
-                  >
-                    게시
-                  </Text>
+                  <Textbutton onClick={commentWrite}>게시</Textbutton>
                 </Grid>
               </Grid>
             </Grid>
@@ -173,20 +170,31 @@ const Line = styled.hr`
 `;
 
 const ReplyBox = styled.div`
-  padding: 5px 20px 0px 16px;
+  padding: 5px 20px 10px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
 const PostInner = styled.div`
-  width: 935px;
+  width: 600px;
   margin: auto;
-  @media (max-width: 935px) {
+  @media (max-width: 600px) {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 `;
+
+const Textbutton = styled.div`
+  font-size: 15px;
+  color: #0095f6;
+  cursor: pointer;
+  text-align: center;
+  margin: 0px 0px 0px 6px;
+  align-items: center;
+  line-height: 40px;
+`;
+
 export default Post;
