@@ -1,11 +1,11 @@
-import { createAction, handleActions } from 'redux-actions';
-import { produce } from 'immer';
-import axios from 'axios';
+import { createAction, handleActions } from "redux-actions";
+import { produce } from "immer";
+import axios from "axios";
 
-const SET_POST = 'SET_POST';
-const ADD_POST = 'ADD_POST';
-const DELETE_POST = 'DELETE_POST';
-const EDIT_POST = 'EDIT_POST';
+const SET_POST = "SET_POST";
+const ADD_POST = "ADD_POST";
+const DELETE_POST = "DELETE_POST";
+const EDIT_POST = "EDIT_POST";
 
 const setPost = createAction(SET_POST, (post_list) => ({ post_list }));
 const addPost = createAction(ADD_POST, (post) => ({ post }));
@@ -19,21 +19,23 @@ const initialState = {
 const addPostAX = (content, image, token, history) => {
   return function (dispatch) {
     let formData = new FormData();
-    formData.append(image);
-    formData.append(content);
+    formData.append(image, "image");
+    formData.append(content, "cotents");
 
     const options = {
-      url: 'http://withoh.shop/api/post',
-      method: 'POST',
+      url: "http://54.180.83.198:8080/api/post",
+      method: "POST",
       headers: {
-        Accept: 'application.json',
-        'Content-Type': 'application/json;charset=UTF-8',
-        'X-AUTH-TOKEN': token,
+        Accept: "application.json",
+        "Content-Type": "application/json;charset=UTF-8",
+        "X-AUTH-TOKEN": token,
       },
       data: formData,
     };
     axios(options)
       .then((response) => {
+
+        console.log(response, "이미지넘어옴?")
         let post_list = {
           post_id: response.data.post_list.post_Id,
           content: response.data.post_list.content,
@@ -42,13 +44,13 @@ const addPostAX = (content, image, token, history) => {
           comments: response.data.post_list.comment,
         };
         dispatch(addPost(post_list));
-        window.alert('게시물 작성 완료');
-        history.push('/');
+        window.alert("게시물 작성 완료");
+        history.push("/");
       })
       .catch((error) => {
         console.log(error);
         if (error.response) {
-          window.alert('addPostAX 에러');
+          window.alert("addPostAX 에러");
         }
       });
   };
@@ -57,11 +59,11 @@ const addPostAX = (content, image, token, history) => {
 const setPostAX = (token, history) => {
   return function (dispatch, getState) {
     const options = {
-      url: 'http://withoh.shop/api/main',
-      method: 'GET',
+      url: "http://withoh.shop/api/main",
+      method: "GET",
       headers: {
-        Accept: 'application.json',
-        'Content-Type': 'application/json;charset=UTF-8',
+        Accept: "application.json",
+        "Content-Type": "application/json;charset=UTF-8",
         // 'X-AUTH-TOKEN': token,
       },
     };
@@ -81,7 +83,7 @@ const setPostAX = (token, history) => {
       .catch((error) => {
         console.log(error);
         if (error.response) {
-          window.alert('setPostAX 에러');
+          window.alert("setPostAX 에러");
         }
       });
   };
@@ -90,12 +92,12 @@ const setPostAX = (token, history) => {
 const deletePostAX = (post_id, token) => {
   return function (dispatch) {
     const options = {
-      url: 'http://withoh.shop/api/post',
-      method: 'DELETE',
+      url: "http://withoh.shop/api/post",
+      method: "DELETE",
       headers: {
-        Accept: 'application.json',
-        'Content-Type': 'application/json;charset=UTF-8',
-        'X-AUTH-TOKEN': token,
+        Accept: "application.json",
+        "Content-Type": "application/json;charset=UTF-8",
+        "X-AUTH-TOKEN": token,
       },
       data: {
         post_Id: post_id,
@@ -108,7 +110,7 @@ const deletePostAX = (post_id, token) => {
       .catch((error) => {
         console.log(error);
         if (error.response) {
-          window.alert('deletePostAX 에러');
+          window.alert("deletePostAX 에러");
         }
       });
   };
@@ -117,12 +119,12 @@ const deletePostAX = (post_id, token) => {
 const editPostAX = (content, post_id, token) => {
   return function (dispatch) {
     const options = {
-      url: 'http://withoh.shop/api/post',
-      method: 'DELETE',
+      url: "http://withoh.shop/api/post",
+      method: "DELETE",
       headers: {
-        Accept: 'application.json',
-        'Content-Type': 'application/json;charset=UTF-8',
-        'X-AUTH-TOKEN': token,
+        Accept: "application.json",
+        "Content-Type": "application/json;charset=UTF-8",
+        "X-AUTH-TOKEN": token,
       },
       data: {
         post_Id: post_id,
@@ -140,7 +142,7 @@ const editPostAX = (content, post_id, token) => {
       .catch((error) => {
         console.log(error);
         if (error.response) {
-          window.alert('editPostAX 에러');
+          window.alert("editPostAX 에러");
         }
       });
   };

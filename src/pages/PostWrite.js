@@ -1,25 +1,27 @@
-import React, { useState } from 'react';
-import { Grid, Input, Text } from '../elements/index';
-import { actionCreators as postActions } from '../redux/modules/post';
-import { useSelector, useDispatch } from 'react-redux';
-import styled from 'styled-components';
-import { history } from '../redux/configStore';
+import React, { useState } from "react";
+import { Grid, Input, Text } from "../elements/index";
+import { actionCreators as postActions } from "../redux/modules/post";
+import { useSelector, useDispatch } from "react-redux";
+import styled from "styled-components";
+import { history } from "../redux/configStore";
 
 const PostWrite = (props) => {
   const dispatch = useDispatch();
 
-  const [preview, setPreview] = useState('http://via.placeholder.com/400x300');
+  const [preview, setPreview] = useState("http://via.placeholder.com/400x300");
   const [image, setImage] = useState(null);
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState("");
 
   const addPost = () => {
     dispatch(postActions.addPostAX(content, image, history));
+    console.log(image, "이미지");
   };
 
   const selectImage = (e) => {
     const image_target = e.target.files[0];
-    const imageUrl = URL.createObjectURL(image_target);
-    setImage(imageUrl);
+    //const imageUrl = URL.createObjectURL(image_target);
+    setImage(image_target);
+    // console.log(imageUrl, "이미지");
 
     //미리보기
     const reader = new FileReader();
@@ -36,19 +38,19 @@ const PostWrite = (props) => {
   return (
     <React.Fragment>
       <Container>
-        <Grid flex_column border padding='' margin=''>
+        <Grid flex_column border padding="" margin="">
           <ImageContainer>
             <Grid>
-              <Text margin='0px' padding='10px' size='32px' bold>
+              <Text margin="0px" padding="10px" size="32px" bold>
                 게시글 작성하기
               </Text>
-              <Input type='file' onChange={selectImage} />
+              <Input type="file" _onChange={selectImage} />
             </Grid>
-            <Grid padding='3px'>
-              <Text margin='0px' size='24px' bold>
-                미리보기{' '}
+            <Grid padding="3px">
+              <Text margin="0px" size="24px" bold>
+                미리보기{" "}
               </Text>
-              <img shape='rectangle' src={preview} />
+              <PreviewImage shape="rectangle" src={preview} />
             </Grid>
           </ImageContainer>
           <TextContainer>
@@ -56,12 +58,18 @@ const PostWrite = (props) => {
               <Input
                 value={content}
                 _onChange={contentChange}
-                label='게시글 내용'
-                placeholder='게시글 작성'
+                label="게시글 내용"
+                placeholder="게시글 작성"
                 multiLine
               />
             </Grid>
-            <button text='게시글 작성' _onClick={addPost}>
+            <button
+              text="게시글 작성"
+              onClick={addPost}
+              onClick={() => {
+                history.push("/");
+              }}
+            >
               업로드
             </button>
           </TextContainer>
@@ -93,6 +101,12 @@ const TextContainer = styled.div`
   background-size: contain;
   width: 100%;
   display: flex;
+`;
+
+const PreviewImage = styled.img`
+  width: 400px;
+  height: 300px;
+  padding: 25px;
 `;
 
 export default PostWrite;

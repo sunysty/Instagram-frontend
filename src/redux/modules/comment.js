@@ -25,7 +25,7 @@ const initialState = {
 const setCommentAX = (post_id) => {
   return function (dispatch) {
     const options = {
-      url: 'http://withoh.shop/api/comment',
+      url: 'http://54.180.83.198:8080/api/comment',
       method: 'POST',
       headers: {
         Accept: 'application.json',
