@@ -24,31 +24,36 @@ const initialState = {
 
 const setCommentAX = (post_id) => {
   return function (dispatch) {
+    const cookies = new Cookies();
+    const token = cookies.get("token");
     const options = {
-      url: "http://withoh.shop/api/comment",
-      method: "POST",
+      url: `http://54.180.83.198:8080/api/comment?postId=${post_id}`,
+      method: "GET",
       headers: {
-        Accept: "application.json",
+        Accept: "application/json",
         "Content-Type": "application/json;charset=UTF-8",
-      },
-      data: {
-        post_Id: post_id,
+        "X-AUTH-TOKEN": token.token,
       },
     };
     axios(options)
       .then((response) => {
-        console.log(response.data);
+        console.log("서버에서 가져온 코맨트", response.data.data);
         let comment_list = [];
-        for (let i = 0; i < response.data.comments.length; i++) {
-          comment_list.push({
-            user_name: response.data.comments[i].username,
-            content: response.data.comments[i].comment,
-            createAt: response.data.comments[i].date,
-            comment_id: response.data.comments[i].commentid,
-            // 추가 ㄱㄴ
-          });
-        }
+        let docs = response.data.data;
+        docs.forEach((doc) => {
+          comment_list.push({ ...doc, post_id: doc.postId });
+        });
+        // for (let i = 0; i < response.data.data.length; i++) {
+        //   comment_list.push({
+        //     user_name: response.data.data.commentId[i].username,
+        //     content: response.data.data.commentId[i].comment,
+        //     createAt: response.data.data.commentId[i].date,
+        //     comment_id: response.data.data.commentId[i].commentid,
+        //     // 추가 ㄱㄴ
+        //   });
+        // }
         // redux 상태 업데이트
+        console.log("코맨트 리스트", comment_list);
         dispatch(setComment(comment_list));
       })
       .catch((error) => {
@@ -60,34 +65,35 @@ const setCommentAX = (post_id) => {
   };
 };
 
-const addCommentAX = (username, post_id, comment, token) => {
+const addCommentAX = (post_id, comment) => {
   return function (dispatch) {
-    console.log(username, comment, post_id);
+    console.log(comment, post_id);
     const cookies = new Cookies();
     const token = cookies.get("token");
     const options = {
-      url: "http://withoh.shop/api/comment",
+      url: "http://54.180.83.198:8080/api/comment",
       method: "POST",
       headers: {
-        Accept: "application.json",
+        Accept: "application/json",
         "Content-Type": "application/json;charset=UTF-8",
-        "X-AUTH-TOKEN": token,
+        "X-AUTH-TOKEN": token.token,
       },
       data: {
         comment: comment,
         postid: post_id,
-        username: username,
+        username: token.username,
       },
     };
     axios(options)
       .then((response) => {
         let comment_list = {
-          username: response.data.realTimeComment.name,
-          content: response.data.realTimeComment.text,
-          createAt: response.data.realTimeComment.createAt,
-          comment_id: response.data.realTimeComment.comment_id,
+          username: response.data.data.username,
+          content: response.data.data.comment,
+          createAt: response.data.data.data,
+          comment_id: response.data.data.postId,
         };
         // 방금 추가한 코멘트 정보를 redux 상태에 업데이트
+        console.log("추가한 코맨트", comment_list);
         dispatch(addComment(comment_list));
         // comment의 개수를 셀 때, post_list에 포함된 comments 배열의 길이를 세서 화면에 표현
         dispatch(postActions.newComment(parseInt(post_id)));
@@ -140,7 +146,7 @@ export default handleActions(
 
     [ADD_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        draft.list.unshift(action.payload.comment);
+        draft.list.push(action.payload.comment);
       }),
 
     [DELETE_COMMENT]: (state, action) =>

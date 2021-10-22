@@ -9,11 +9,23 @@ import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 
 const Post = (props) => {
+  const dispatch = useDispatch();
+
   const post_list = useSelector((state) => state.post.list);
+  const comment_list = useSelector((state) => state.comment.list);
 
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [comment, setComment] = useState();
+
+  const post_data = useSelector((state) => state.post.list);
   // let comment_count = props.comment.length;
-  console.log("포스트 불러오기", post_list);
+  console.log(comment_list);
+
+  // 댓글 보기 기능을 위한 Post_id 보내기
+  // for (let i = 0; i < post_data.length; i++) {
+  //   dispatch(commentActions.setCommentAX(post_data[i].post_id));
+  // }
+
   const openModal = () => {
     setModalVisible(true);
   };
@@ -22,10 +34,6 @@ const Post = (props) => {
     setModalVisible(false);
   };
 
-  const [comment, setComment] = useState();
-  const dispatch = useDispatch();
-
-  const token = sessionStorage.getItem("token");
   const commentWrite = () => {
     // comment 작성 후에 input창을 비워줌
     setComment("");
@@ -33,7 +41,7 @@ const Post = (props) => {
       window.alert("댓글 내용을 입력해주세요");
       return;
     }
-    dispatch(commentActions.addCommentAX(props.post_id, comment, token));
+    dispatch(commentActions.addCommentAX(props.post_id, comment, username));
   };
 
   const username = useSelector((state) => state.user);
@@ -45,9 +53,7 @@ const Post = (props) => {
   //게시물삭제
   const deletePost = () => {
     if (window.confirm("삭제하시겠습니까?")) {
-      console.log(post_list[1].post_id, "삭제할 postid값");
-
-      dispatch(postActions.deletePostAX(post_list.postid));
+      dispatch(postActions.deletePostAX(props.post_id));
     } else {
       return;
     }
@@ -68,7 +74,7 @@ const Post = (props) => {
                 shape='circle'
                 size='36'
               ></Image> */}
-            {/* <Text bold>{post_list.username}</Text> */}
+            <Text bold>{props.username}</Text>
           </Grid>
           <Grid>
             <Text
@@ -98,7 +104,6 @@ const Post = (props) => {
         </Grid>
         <Grid>
           <Grid>
-            <Text>{props.name}</Text>
             <Text>{props.createAt}</Text>
           </Grid>
           <Grid>

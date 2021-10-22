@@ -1,10 +1,11 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Grid } from '../elements';
-import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as postActions } from '../redux/modules/post';
-import { Post, Header } from '../components/index';
-import { history } from '../redux/configStore';
+import React from "react";
+import styled from "styled-components";
+import { Grid } from "../elements";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as postActions } from "../redux/modules/post";
+import { actionCreators as commentActions } from "../redux/modules/comment";
+import { Post, Header } from "../components/index";
+import { history } from "../redux/configStore";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const Main = () => {
       dispatch(postActions.setPostAX(history));
     }
   }, []);
+  console.log(post_data);
 
   return (
     <React.Fragment>
@@ -27,7 +29,7 @@ const Main = () => {
           맵을 돌리면서 Post부터 그이하로 props로 데이터 전달 */}
           {post_data.map((p, idx) => {
             return (
-              <Grid key={idx} margin='0px'>
+              <Grid key={idx} margin="0px">
                 <Post {...p} />
               </Grid>
             );

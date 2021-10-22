@@ -14,7 +14,7 @@ const PostWrite = (props) => {
 
   const addPost = () => {
     dispatch(postActions.addPostAX(content, image, history));
-    console.log(image, "이미지");
+    history.push("/");
   };
 
   const selectImage = (e) => {
