@@ -6,7 +6,7 @@
 ---
 `소셜미디어 인스타그램을 클론한 사이트 입니다.`
 
-<a href="https://youtu.be/3Ln_p9Wq9Cg">▶️영상보러가기<a/>
+<a href="https://youtu.be/3Ln_p9Wq9Cg">▶️ 영상보러가기<a/>
 
 </br><br/>
 
